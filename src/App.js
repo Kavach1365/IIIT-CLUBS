@@ -15,8 +15,10 @@ function App() {
         </div>
         <div className="hide-side-bar overflow-y-auto">
           <Outlet />
-          <div className="w-full border-t-2 h-1/4 mt-2 pt-2">
-            <Footer />
+          <div className="mt-14">
+            <div className="w-full border-t-2 h-1/4 mt-2 pt-2">
+              <Footer />
+            </div>
           </div>
         </div>
       </div>

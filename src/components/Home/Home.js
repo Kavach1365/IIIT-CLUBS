@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import recentEvents from "../../utils/recentEvents";
 import { GrTechnology } from "react-icons/gr";
 import { IoMdMusicalNote } from "react-icons/io";
@@ -11,32 +12,36 @@ import images from "../../utils/images";
 const Home = () => {
   const recentEventsList = recentEvents();
   const imagesList = images();
-
-  console.log(recentEventsList);
   return (
     <div>
       <div className="mb-4">
         <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
         <div className="flex">
           {recentEventsList.map((event) => (
-            <div className="w-4/5 mr-3 h-92 rounded-xl shadow-xl hover:scale-95 cursor-pointer">
-              <div className="h-60">
-                <img
-                  src={event.imgUrl}
-                  alt={event.clubName}
-                  className="w-full h-full rounded-t-xl"
-                />
+            <Link
+              to={`/events/${event.id}`}
+              className="w-4/5 rounded-xl shadow-xl hover:scale-95 cursor-pointer"
+              key={event.id}
+            >
+              <div className="  mr-3 h-92  ">
+                <div className="h-60">
+                  <img
+                    src={event.imgUrl}
+                    alt={event.clubName}
+                    className="w-full h-full rounded-t-xl"
+                  />
+                </div>
+                <div className="flex flex-col justify-center h-32 pl-6 ">
+                  <h2>{event.eventName}</h2>
+                  <p>{event.startDate}</p>
+                </div>
               </div>
-              <div className="flex flex-col justify-center h-32 pl-6 ">
-                <h2>{event.eventName}</h2>
-                <p>{event.startDate}</p>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
       <div className="mb-3 mt-3">
-        <h1 className="text-xl font-bold">Clubs @ IIITH</h1>
+        <h1 className="text-xl font-bold">Clubs @ IIIT-B</h1>
         <p className="font-medium mt-3 mb-3">
           The clubs of IIIT-H conduct various captivating events throughout the
           year. Students across all UG/PG batches engage in the events, which
@@ -85,7 +90,7 @@ const Home = () => {
         </div>
       </div>
       <div>
-        <h1 className="text-xl font-bold">Clubs Council @ IIITH</h1>
+        <h1 className="text-xl font-bold">Clubs Council @ IIIT-B</h1>
         <p className="font-medium mt-3 mb-3">
           The Clubs Council is the largest Student Administrative Organization
           at IIIT Hyderabad, and acts as an umbrella body of all the institute
@@ -132,11 +137,12 @@ const Home = () => {
         </div>
       </div>
       <div className="flex flex-wrap relative mb-12">
-        {imagesList.map((image) => (
+        {imagesList.map((image, index) => (
           <img
             src={image}
             alt="GalleryImage"
             className=" rounded-3xl p-2 w-1/4 cursor-pointer hover:scale-105"
+            key={index}
           />
         ))}
       </div>

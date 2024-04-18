@@ -11,6 +11,7 @@ import Gallery from "./components/Gallery/Gallery";
 import ClubCouncil from "./components/ClubCouncil/ClubCouncil";
 import SupervisoryBodies from "./components/SupervisoryBodies/SupervisoryBodies";
 import BugReport from "./components/BugReport/BugReport";
+import Event from "./components/Event/Event";
 
 const appRouter = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/bug-report",
         element: <BugReport />,
+      },
+      {
+        path: "/events/:id",
+        element: <Event />,
       },
     ],
   },
