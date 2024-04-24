@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import recentEvents from "../../utils/recentEvents";
 import { SlCalender } from "react-icons/sl";
@@ -7,8 +7,20 @@ import { FaUserGroup } from "react-icons/fa6";
 
 const Event = () => {
   const { id } = useParams();
-  const recentEventsList = recentEvents();
-  const event = recentEventsList.filter((eachEvent) => eachEvent.id === id);
+  const [recentEventsList, setRecentEventsList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await recentEvents();
+      setRecentEventsList(data);
+    };
+    fetchData();
+  }, []);
+  /*Need to add shimmer Effect */
+
+  if (recentEventsList.length === 0) {
+    return <h1>No events yet!</h1>;
+  }
+  const event = recentEventsList.filter((eachEvent) => eachEvent._id === id);
   const {
     imgUrl,
     eventName,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import recentEvents from "../../utils/recentEvents";
 import { GrTechnology } from "react-icons/gr";
@@ -8,42 +8,54 @@ import { MdGroups3 } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
 import { IoMapSharp } from "react-icons/io5";
 import images from "../../utils/images";
+import ShimmerHome from "./ShimmerHome";
 
 const Home = () => {
-  const recentEventsList = recentEvents();
+  const [recentEventsList, setRecentEventsList] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await recentEvents();
+      setRecentEventsList(data);
+    };
+    fetchData();
+  }, []);
   const imagesList = images();
   return (
     <div>
       <div className="mb-4">
         <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
-        <div className="flex">
-          {recentEventsList.map((event) => (
-            <Link
-              to={`/events/${event.id}`}
-              className="w-4/5 rounded-xl shadow-xl hover:scale-95 cursor-pointer"
-              key={event.id}
-            >
-              <div className="  mr-3 h-92  ">
-                <div className="h-60">
-                  <img
-                    src={event.imgUrl}
-                    alt={event.clubName}
-                    className="w-full h-full rounded-t-xl"
-                  />
+        {recentEventsList.length === 0 ? (
+          <ShimmerHome />
+        ) : (
+          <div className="flex flex-wrap">
+            {recentEventsList.map((event) => (
+              <Link
+                to={`/events/${event._id}`}
+                className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
+                key={event._id}
+              >
+                <div className="h-92">
+                  <div className="h-60">
+                    <img
+                      src={event.imgUrl}
+                      alt={event.clubName}
+                      className="w-full h-full rounded-t-xl"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center h-32 pl-6 ">
+                    <h2>{event.eventName}</h2>
+                    <p>{event.startDate}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center h-32 pl-6 ">
-                  <h2>{event.eventName}</h2>
-                  <p>{event.startDate}</p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
       <div className="mb-3 mt-3">
         <h1 className="text-xl font-bold">Clubs @ IIIT-B</h1>
         <p className="font-medium mt-3 mb-3">
-          The clubs of IIIT-H conduct various captivating events throughout the
+          The clubs of IIIT-B conduct various captivating events throughout the
           year. Students across all UG/PG batches engage in the events, which
           tells how lively the campus life is! There are 2 Affinity Groups & 23
           Clubs at IIITH, divided into technical and cultural categories.

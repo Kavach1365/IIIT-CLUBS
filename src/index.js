@@ -12,6 +12,7 @@ import ClubCouncil from "./components/ClubCouncil/ClubCouncil";
 import SupervisoryBodies from "./components/SupervisoryBodies/SupervisoryBodies";
 import BugReport from "./components/BugReport/BugReport";
 import Event from "./components/Event/Event";
+import AddEvents from "./components/Events/AddEvents";
 
 const appRouter = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/events/:id",
         element: <Event />,
+      },
+      {
+        path: "/add-upcoming-events",
+        element: <AddEvents />,
       },
     ],
   },

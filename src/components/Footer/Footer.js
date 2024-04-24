@@ -41,7 +41,7 @@ const Footer = () => {
           Developed & Maintained with ❤️ by Team KAVACH (powered by Clubs
           Council)
         </p>
-        <div className="flex items-center justify-between text-gray-800 font-semibold w-1/6 text-sm">
+        <div className="flex items-center justify-between text-gray-800 font-semibold w-1/5 text-sm">
           <p>Changelog</p>
           <p>•</p>
           <p>Privacy Policy</p>
