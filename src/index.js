@@ -14,6 +14,7 @@ import BugReport from "./components/BugReport/BugReport";
 import Event from "./components/Event/Event";
 import AddEvents from "./components/Events/AddEvents";
 import GalleryMain from "./components/Gallery/GalleryMain";
+import ClubProfile from "./components/ClubProfile/ClubProfile";
 
 const appRouter = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/add-upcoming-events",
         element: <AddEvents />,
+      },
+      {
+        path: "/club-profile",
+        element: <ClubProfile />,
       },
     ],
   },
