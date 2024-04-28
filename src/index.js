@@ -13,6 +13,7 @@ import SupervisoryBodies from "./components/SupervisoryBodies/SupervisoryBodies"
 import BugReport from "./components/BugReport/BugReport";
 import Event from "./components/Event/Event";
 import AddEvents from "./components/Events/AddEvents";
+import GalleryMain from "./components/Gallery/GalleryMain";
 
 const appRouter = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/gallery",
-        element: <Gallery />,
+        element: <GalleryMain />,
       },
       {
         path: "/about/club-council",

@@ -1,0 +1,52 @@
+.lg-react-element {
+  column-count: 4;
+  column-gap: 10px;
+}
+
+.gallery-images {
+  max-width: 100%;
+  display: block;
+  padding: 5px 0px;
+  border-radius: 10px;
+}
+
+.gallery-input {
+  display: none;
+}
+
+.selectFile-button {
+  align-self: flex-end;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: rgb(128, 128, 255);
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.selectFile-button:hover {
+  background-color: rgb(0, 0, 255);
+}
+
+.gallery-main-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gallery-title {
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.scroll {
+  height: 70vh;
+  overflow-y: scroll;
+}

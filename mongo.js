@@ -43,5 +43,14 @@ const upcomingEventsSchema = mongoose.Schema({
   },
 });
 
+const gallerySchema = mongoose.Schema({
+  imgUrl: {
+    type: String,
+    required: true,
+  },
+});
+
 const upcomingEvent = mongoose.model("upcomingEvent", upcomingEventsSchema);
-module.exports = upcomingEvent;
+
+const addToGallery = mongoose.model("addToGallery", gallerySchema);
+module.exports = { upcomingEvent, addToGallery };

@@ -12,14 +12,18 @@ import ShimmerHome from "./ShimmerHome";
 
 const Home = () => {
   const [recentEventsList, setRecentEventsList] = useState([]);
+  const [imagesList, setImagesList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await recentEvents();
+      let imagesArray = await images();
       setRecentEventsList(data);
+      imagesArray = imagesArray.splice(0, 12);
+      setImagesList(imagesArray);
     };
     fetchData();
   }, []);
-  const imagesList = images();
+  // const imagesList = images();
   return (
     <div>
       <div className="mb-4">
@@ -151,7 +155,7 @@ const Home = () => {
       <div className="flex flex-wrap relative mb-12">
         {imagesList.map((image, index) => (
           <img
-            src={image}
+            src={image.imgUrl}
             alt="GalleryImage"
             className=" rounded-3xl p-2 w-1/4 cursor-pointer hover:scale-105"
             key={index}
