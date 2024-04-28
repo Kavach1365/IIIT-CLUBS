@@ -6,7 +6,7 @@ const Item = (props) => {
   return (
     <div
       key={props.id}
-      className="relative max-w-xs rounded-2xl overflow-hidden shadow-lg group"
+      className="h-[300px] relative w-100 rounded-2xl overflow-hidden shadow-lg group"
     >
       <img
         src={props.imgUrl}
@@ -14,7 +14,7 @@ const Item = (props) => {
         className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-200"
       />
 
-      <div className="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/60 to-transparent">
+      <div className=" absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/60 to-transparent">
         <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white">
           <img
             src={props.imgUrl}
@@ -40,7 +40,7 @@ const CategorySection = ({ category }) => {
           {category}
         </p>
       </div>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 cursor-pointer">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-3 cursor-pointer">
         {clubList.map((item) =>
           item.Category === category ? (
             <Link to="/club-profile">
