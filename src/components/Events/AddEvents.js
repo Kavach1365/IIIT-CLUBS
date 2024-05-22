@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./AddEvents.css";
 import { FaFile } from "react-icons/fa";
@@ -7,7 +7,6 @@ import { FaSpinner } from "react-icons/fa";
 const AddEvents = () => {
   const [clubName, setClubName] = useState("");
   const [eventName, setEventName] = useState("");
-  let imgUrl = "";
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [venue, setVenue] = useState("");
@@ -36,7 +35,7 @@ const AddEvents = () => {
         formData
       );
       setAddEventImage(res.data.secure_url);
-      imgUrl = res.data.secure_url;
+      // imgUrl = res.data.secure_url;
       setIsUploading(false);
     } catch (err) {
       console.error("Error uploading image:", err);
@@ -82,7 +81,7 @@ const AddEvents = () => {
       console.error("Error adding event:", e);
     }
 
-    imgUrl = "";
+    // imgUrl = "";
     setClubName("");
     setAddEventImage("");
     setEventName("");

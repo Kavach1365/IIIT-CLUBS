@@ -7,7 +7,7 @@ import Home from "./components/Home/Home";
 import Clubs from "./components/Clubs/Clubs";
 import Events from "./components/Events/Events";
 import Calender from "./components/Calender/Calender";
-import Gallery from "./components/Gallery/Gallery";
+// import Gallery from "./components/Gallery/Gallery";
 import ClubCouncil from "./components/ClubCouncil/ClubCouncil";
 import SupervisoryBodies from "./components/SupervisoryBodies/SupervisoryBodies";
 import BugReport from "./components/BugReport/BugReport";
