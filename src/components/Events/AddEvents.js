@@ -5,18 +5,19 @@ import { FaFile } from "react-icons/fa";
 import { FaSpinner } from "react-icons/fa";
 
 const AddEvents = () => {
-  const clubName = useRef();
-  const eventName = useRef();
-  const imgUrl = useRef();
-  const startDate = useRef();
-  const endDate = useRef();
-  const venue = useRef();
-  const eligibility = useRef();
-  const description = useRef();
+  const [clubName, setClubName] = useState("");
+  const [eventName, setEventName] = useState("");
+  let imgUrl = "";
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [venue, setVenue] = useState("");
+  const [eligibility, setEligibility] = useState("");
+  const [description, setDescription] = useState("");
 
   // State for holding the uploaded image URL
   const [addEventImage, setAddEventImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const uploadImage = async (e) => {
     e.preventDefault();
@@ -28,45 +29,68 @@ const AddEvents = () => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     formData.append("upload_preset", preset_key);
-    axios
-      .post(
+
+    try {
+      const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
         formData
-      )
-      .then((res) => {
-        setAddEventImage(res.data.secure_url);
-        imgUrl.current.value = res.data.secure_url;
-        setIsUploading(false);
-      })
-      .catch((err) => console.log(err));
+      );
+      setAddEventImage(res.data.secure_url);
+      imgUrl = res.data.secure_url;
+      setIsUploading(false);
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      setIsUploading(false);
+    }
   };
 
   const addEventsData = async (e) => {
     e.preventDefault();
-    const eventData = {
-      clubName: clubName.current.value,
-      eventName: eventName.current.value,
-      imgUrl: imgUrl.current.value,
-      startDate: startDate.current.value,
-      endDate: endDate.current.value,
-      venue: venue.current.value,
-      eligibility: eligibility.current.value.split(","),
-      description: description.current.value,
-    };
 
-    try {
-      await axios
-        .post("http://localhost:8000/add-upcoming-events", eventData)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log("Error");
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
+    if (
+      clubName === "" ||
+      eventName === "" ||
+      addEventImage === "" ||
+      startDate === "" ||
+      endDate === "" ||
+      venue === "" ||
+      eligibility === "" ||
+      description === ""
+    ) {
+      setErrorMessage(true);
+      return;
     }
+    const eventData = {
+      clubName: clubName,
+      eventName: eventName,
+      imgUrl: addEventImage,
+      startDate: startDate,
+      endDate: endDate,
+      venue: venue,
+      eligibility: eligibility.split(","),
+      description: description,
+    };
+    setErrorMessage(false);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/add-upcoming-events",
+        eventData
+      );
+      console.log(res);
+      // Reset form fields after successful submission
+    } catch (e) {
+      console.error("Error adding event:", e);
+    }
+
+    imgUrl = "";
+    setClubName("");
+    setAddEventImage("");
+    setEventName("");
+    setStartDate("");
+    setEndDate("");
+    setVenue("");
+    setEligibility("");
+    setDescription("");
   };
 
   return (
@@ -79,7 +103,8 @@ const AddEvents = () => {
             type="text"
             id="clubName"
             placeholder="Enter the club name.."
-            ref={clubName}
+            onChange={(e) => setClubName(e.target.value)}
+            value={clubName}
           />
         </div>
         <div className="form-group">
@@ -88,16 +113,8 @@ const AddEvents = () => {
             type="text"
             id="eventName"
             placeholder="Enter the event name.."
-            ref={eventName}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="imgUrl">Image URL</label>
-          <input
-            type="text"
-            id="imgUrl"
-            placeholder="Enter the image url.."
-            ref={imgUrl}
+            onChange={(e) => setEventName(e.target.value)}
+            value={eventName}
           />
         </div>
         <div className="form-group">
@@ -106,7 +123,8 @@ const AddEvents = () => {
             type="text"
             id="startDate"
             placeholder="Enter the start date.."
-            ref={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            value={startDate}
           />
         </div>
         <div className="form-group">
@@ -115,7 +133,8 @@ const AddEvents = () => {
             type="text"
             id="endDate"
             placeholder="Enter the end date.."
-            ref={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            value={endDate}
           />
         </div>
         <div className="form-group">
@@ -124,7 +143,8 @@ const AddEvents = () => {
             type="text"
             id="venue"
             placeholder="Enter the venue.."
-            ref={venue}
+            onChange={(e) => setVenue(e.target.value)}
+            value={venue}
           />
         </div>
         <div className="form-group">
@@ -133,7 +153,8 @@ const AddEvents = () => {
             type="text"
             id="eligibility"
             placeholder="Enter the eligibility like (P1,P2,E1..).."
-            ref={eligibility}
+            onChange={(e) => setEligibility(e.target.value)}
+            value={eligibility}
           />
         </div>
         <div className="form-group">
@@ -141,7 +162,8 @@ const AddEvents = () => {
           <textarea
             id="description"
             placeholder="Enter the event description.."
-            ref={description}
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
           ></textarea>
         </div>
         {/* changed */}
@@ -178,6 +200,7 @@ const AddEvents = () => {
         <button className="add-event-button" type="submit">
           Submit
         </button>
+        {errorMessage && <p>Please enter the data!</p>}
       </form>
     </div>
   );

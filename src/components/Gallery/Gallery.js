@@ -19,7 +19,11 @@ export default function Gallery(props) {
   };
   return (
     <div className="scroll">
-      <LightGallery onInit={onInit} speed={500} plugins={[lgThumbnail, lgZoom]}>
+      <LightGallery
+        onInit={onInit}
+        speed={5000}
+        plugins={[lgThumbnail, lgZoom]}
+      >
         {imageArray.map((imageEle, index) => (
           <a key={index} href={imageEle.imgUrl}>
             <img
