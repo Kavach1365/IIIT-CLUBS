@@ -5,12 +5,12 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 function App() {
   return (
-    <div className="flex max-h-screen h-full  p-8 min-h-screen relative">
-      <div className="border-r border-dashed w-2/12">
+    <div className="flex max-h-screen h-full  p-8 pt-4 min-h-screen relative ">
+      <div className="border-r border-dashed w-2/12 ">
         <Sidebar />
       </div>
       <div className=" flex flex-col w-10/12 ml-10 relative">
-        <div className="flex justify-end h-20 mb-10">
+        <div className="flex justify-end">
           <Header />
         </div>
         <div className="hide-side-bar overflow-y-auto">

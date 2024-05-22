@@ -3,7 +3,7 @@ import React from "react";
 const ShimmerHome = () => {
   return (
     <div className="flex flex-wrap">
-      {Array.from({ length: 9 }, (_, i) => (
+      {Array.from({ length: 4 }, (_, i) => (
         <div
           key={i}
           className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"

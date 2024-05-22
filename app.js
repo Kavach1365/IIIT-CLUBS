@@ -140,11 +140,35 @@ app.get("/clubProfile", async (req, res) => {
   }
 });
 
+app.get("/all-events", async (req, res) => {
+  try {
+    const data = await event.find({});
+    console.log("completed-events");
+    console.log(data);
+    res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
 app.get("/upComing-events", async (req, res) => {
   const todayDate = new Date();
   try {
     const data = await event.find({ startDate: { $gt: todayDate } });
     console.log("Upbsdb");
+    console.log(data);
+    res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+app.get("/completed-events", async (req, res) => {
+  const todayDate = new Date();
+  try {
+    const data = await event.find({ startDate: { $lt: todayDate } });
+    console.log("completed-events");
     console.log(data);
     res.status(200).send(data);
   } catch (e) {
