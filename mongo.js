@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
+
+const uri =
+  "mongodb+srv://swapnithkumar:5kB8WazfLz8nOX3Y@clubs.yly74p6.mongodb.net/clubCouncil?retryWrites=true&w=majority&appName=clubs";
+
 mongoose
-  .connect("mongodb://0.0.0.0:27017/clubCouncil")
+  .connect(uri)
   .then(() => {
-    console.log("Mongodb connected");
+    console.log("Mongodb connected sucessfully");
   })
-  .catch(() => {
-    console.log("Failed");
+  .catch((error) => {
+    console.log("Failed to connect to MongoDB", error);
   });
 
 const upcomingEventsSchema = mongoose.Schema({
