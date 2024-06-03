@@ -3,7 +3,7 @@ import axios from "axios";
 const recentEvents = async () => {
   let recentEventsList;
   try {
-    const response = await axios.get("http://localhost:8000/upcoming-events");
+    const response = await axios.get("http://localhost:8005/upcoming-events");
     recentEventsList = response.data;
   } catch (e) {
     recentEventsList = [];

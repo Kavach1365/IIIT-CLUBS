@@ -72,7 +72,7 @@ const AddEvents = () => {
     setErrorMessage(false);
     try {
       const res = await axios.post(
-        "http://localhost:8000/add-upcoming-events",
+        "http://localhost:8005/add-upcoming-events",
         eventData
       );
       console.log(res);
@@ -119,7 +119,7 @@ const AddEvents = () => {
         <div className="form-group">
           <label htmlFor="startDate">Start Date</label>
           <input
-            type="text"
+            type="datetime-local"
             id="startDate"
             placeholder="Enter the start date.."
             onChange={(e) => setStartDate(e.target.value)}
@@ -129,7 +129,7 @@ const AddEvents = () => {
         <div className="form-group">
           <label htmlFor="endDate">End Date</label>
           <input
-            type="text"
+            type="datetime-local"
             id="endDate"
             placeholder="Enter the end date.."
             onChange={(e) => setEndDate(e.target.value)}
