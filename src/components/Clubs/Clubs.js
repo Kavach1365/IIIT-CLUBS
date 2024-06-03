@@ -43,11 +43,16 @@ const CategorySection = ({ category, clubs }) => {
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-3 cursor-pointer">
         {clubs.map((item) => {
-          return item.category === category ? (
-            <Link key={item.id} to="/club-profile">
-              <Item {...item} />
-            </Link>
-          ) : null;
+          if (item.category === category) {
+            //console.log(item._id);
+            return (
+              <Link key={item._id} to={`/club-profile/${item._id}`}>
+                <Item {...item} />
+              </Link>
+            );
+          } else {
+            return null;
+          }
         })}
       </div>
     </div>

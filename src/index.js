@@ -63,7 +63,7 @@ const appRouter = createBrowserRouter([
         element: <AddEvents />,
       },
       {
-        path: "/club-profile",
+        path: "/club-profile/:id",
         element: <ClubProfile />,
       },
       {

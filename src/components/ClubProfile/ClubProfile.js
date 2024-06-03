@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CgMail } from "react-icons/cg";
 import { FaFacebook } from "react-icons/fa";
@@ -8,6 +9,7 @@ import { LuFileBadge2 } from "react-icons/lu";
 import "../ClubCouncil/ClubCouncil.css";
 import data from "../../utils/clubcouncil";
 import eventdata from "../../utils/eventlist";
+import clubProfile from "../../utils/clubProfile";
 
 const Card = (props) => {
   return (
@@ -44,11 +46,12 @@ const Members = () => {
   );
 };
 
-const Banner = () => {
+const Banner = (props) => {
+  console.log(props.clubBannerUrl);
   return (
     <div className="h-52 overflow-hidden rounded-2xl">
       <img
-        src="https://clubs.iiit.ac.in/_next/image?url=http%3A%2F%2Ffiles%2Ffiles%2Fdownload%3Ffilename%3DiqnFE5gssQgquHaLA23RA8_hacking.club.png&w=256&q=75"
+        src={props.clubBannerUrl}
         alt="Club Banner"
         className="relative bottom-48 w-full rounded-2xl"
       />
@@ -56,40 +59,43 @@ const Banner = () => {
   );
 };
 
-const Description = () => {
+const Description = (props) => {
+  const {
+    clubImageUrl,
+    clubName,
+    tagLine,
+    description,
+    instagramUrl,
+    mailId,
+    youtubeUrl,
+  } = props.clubList;
+
   return (
     <div className="">
       <div className="p-7 flex items-center">
         <img
-          src="https://clubs.iiit.ac.in/_next/image?url=http%3A%2F%2Ffiles%2Ffiles%2Fdownload%3Ffilename%3DiqnFE5gssQgquHaLA23RA8_hacking.club.png&w=256&q=75"
+          src={clubImageUrl}
           className="w-24 h-24 rounded-full"
           alt="profile-logo"
         />
         <div className="m-5">
-          <h1 className="text-3xl font-bold">0x1337: The Hacking Club</h1>
-          <p className="text-gray-500 pt-2">
-            Exploiting vulnerabilities for fun and teaching about security in
-            today's world
-          </p>
+          <h1 className="text-3xl font-bold">{clubName}</h1>
+          <p className="text-gray-500 pt-2">{tagLine}</p>
         </div>
       </div>
 
       <div className="pb-9">
-        <p>
-          We are a club based on ethical hacking, where we try to familiarize
-          people with different tools and ways of ethical hacking and make them
-          aware about how cybersecurity is so important in today’s world.
-        </p>
+        <p>{description}</p>
       </div>
       <div className="flex items-center gap-2 mb-8">
         {<CgMail />}
-        <Link>varshavarshu555@gmail.com</Link>
+        <Link to={`mailto:${mailId}`}>Mail</Link>
         {<FaInstagram />}
-        <Link>Hackingclubiith</Link>
+        <Link to={instagramUrl}>Mail</Link>
         {<FaFacebook />}
-        <Link>Hackingclubiith</Link>
+        <Link to={instagramUrl}>Facebook</Link>
         {<FaYoutube />}
-        <Link>Hackingclubiith</Link>
+        <Link to={youtubeUrl}>Youtube</Link>
       </div>
       <hr className="border-dotted" />
     </div>
@@ -127,10 +133,22 @@ const Events = () => {
 };
 
 const ClubProfile = () => {
-  return (
+  const { id } = useParams();
+  //console.log(id);
+  const [clubList, setClubList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await clubProfile(id);
+      setClubList(data);
+    };
+    fetchData();
+  }, [id]);
+
+  return clubList.length === 0 ? null : (
     <div>
-      <Banner />
-      <Description />
+      <Banner clubBannerUrl={clubList[0]?.clubBannerUrl} />
+      <Description clubList={clubList[0]} />
       <Events />
       <Members />
     </div>

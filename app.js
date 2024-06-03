@@ -129,6 +129,17 @@ app.get("/clubs", async (req, res) => {
   }
 });
 
+app.get("/clubProfile", async (req, res) => {
+  const { clubId } = req.query;
+  try {
+    const data = await club.find({ _id: clubId });
+    res.send(data);
+  } catch (e) {
+    console.log("Error");
+    res.status(500).send("Error fetching data!");
+  }
+});
+
 app.get("/upComing-events", async (req, res) => {
   const todayDate = new Date();
   try {

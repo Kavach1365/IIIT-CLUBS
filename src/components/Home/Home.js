@@ -164,7 +164,7 @@ const Home = () => {
           <img
             src={image.imgUrl}
             alt="GalleryImage"
-            className=" rounded-3xl p-2 w-1/4 cursor-pointer hover:scale-105"
+            className=" rounded-3xl p-2 w-2/12 cursor-pointer hover:scale-105"
             key={index}
           />
         ))}
