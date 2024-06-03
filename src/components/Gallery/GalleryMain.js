@@ -30,7 +30,7 @@ const GalleryMain = () => {
       );
       const imgUrl = res.data.secure_url;
       try {
-        await axios.post("http://localhost:8000/add-to-gallery", { imgUrl }); // Pass the data object
+        await axios.post("http://localhost:8005/add-to-gallery", { imgUrl }); // Pass the data object
         setLoading(false);
       } catch (e) {
         console.log("Error adding image to gallery:", e);

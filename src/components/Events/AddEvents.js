@@ -72,7 +72,7 @@ const AddEvents = () => {
     setErrorMessage(false);
     try {
       const res = await axios.post(
-        "http://localhost:8005/add-upcoming-events",
+        "http://localhost:8005/add-event",
         eventData
       );
       console.log(res);

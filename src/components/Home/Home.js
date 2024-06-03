@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import recentEvents from "../../utils/recentEvents";
 import { GrTechnology } from "react-icons/gr";
 import { IoMdMusicalNote } from "react-icons/io";
 import { RiServiceFill } from "react-icons/ri";
@@ -9,13 +8,14 @@ import { RiGraduationCapFill } from "react-icons/ri";
 import { IoMapSharp } from "react-icons/io5";
 import images from "../../utils/images";
 import ShimmerHome from "./ShimmerHome";
+import upComingEvents from "../../utils/upComingEvents";
 
 const Home = () => {
-  const [recentEventsList, setRecentEventsList] = useState([]);
+  const [recentEventsList, setRecentEventsList] = useState(null);
   const [imagesList, setImagesList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await recentEvents();
+      const data = await upComingEvents();
       let imagesArray = await images();
       setRecentEventsList(data);
       imagesArray = imagesArray.splice(0, 12);
@@ -28,8 +28,14 @@ const Home = () => {
     <div>
       <div className="mb-4">
         <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
-        {recentEventsList.length === 0 ? (
+        {recentEventsList === null ? (
           <ShimmerHome />
+        ) : recentEventsList.length === 0 ? (
+          <div className="flex items-center justify-center">
+            <h1 className="text-red-600 font-bold">
+              No Up Coming Events to display.
+            </h1>
+          </div>
         ) : (
           <div className="flex flex-wrap">
             {recentEventsList.map((event) => (
@@ -60,9 +66,10 @@ const Home = () => {
         <h1 className="text-xl font-bold">Clubs @ IIIT-B</h1>
         <p className="font-medium mt-3 mb-3">
           The clubs of IIIT-B conduct various captivating events throughout the
-          year. Students across all UG/PG batches engage in the events, which
-          tells how lively the campus life is! There are 2 Affinity Groups & 23
-          Clubs at IIITH, divided into technical and cultural categories.
+          year. Students across all Engineering/PUC batches engage in the
+          events, which tells how lively the campus life is! There are 2
+          Affinity Groups & 23 Clubs at IIIT-B, divided into technical and
+          cultural categories.
         </p>
         <p className="font-medium mt-3 mb-3">
           Clubs on campus are run by students, for the students. Club activities
@@ -109,7 +116,7 @@ const Home = () => {
         <h1 className="text-xl font-bold">Clubs Council @ IIIT-B</h1>
         <p className="font-medium mt-3 mb-3">
           The Clubs Council is the largest Student Administrative Organization
-          at IIIT Hyderabad, and acts as an umbrella body of all the institute
+          at IIIT Basar, and acts as an umbrella body of all the institute
           affiliated and associate student-led Clubs, Groups & Societies.
         </p>
         <div className="flex mb-12">

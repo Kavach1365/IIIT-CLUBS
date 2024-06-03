@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LiaNetworkWiredSolid } from "react-icons/lia";
-import clubList from "../../utils/club"; // Assuming clubList contains the data
 import { Link } from "react-router-dom";
+import club from "../../utils/club"; // Assuming clubList contains the data
+
 const Item = (props) => {
   return (
     <div
@@ -9,15 +10,15 @@ const Item = (props) => {
       className="h-[300px] relative w-100 rounded-2xl overflow-hidden shadow-lg group"
     >
       <img
-        src={props.imgUrl}
+        src={props.clubBannerUrl}
         alt={props.clubName}
         className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-200"
       />
 
-      <div className=" absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/60 to-transparent">
+      <div className="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/60 to-transparent">
         <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white">
           <img
-            src={props.imgUrl}
+            src={props.clubImageUrl}
             className="w-full h-full object-cover"
             alt={props.clubName}
           />
@@ -25,13 +26,13 @@ const Item = (props) => {
         <h1 className="pt-4 pb-4 font-bold text-xl text-white">
           {props.clubName}
         </h1>
-        <p className="text-white text-xs">{props.description}</p>
+        <p className="text-white text-xs">{props.tagLine}</p>
       </div>
     </div>
   );
 };
 
-const CategorySection = ({ category }) => {
+const CategorySection = ({ category, clubs }) => {
   return (
     <div className="pb-5">
       <div className="mt-0 flex pb-5 items-center">
@@ -41,24 +42,34 @@ const CategorySection = ({ category }) => {
         </p>
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-3 cursor-pointer">
-        {clubList.map((item) =>
-          item.Category === category ? (
-            <Link to="/club-profile">
-              <Item key={item.id} {...item} />
+        {clubs.map((item) => {
+          return item.category === category ? (
+            <Link key={item.id} to="/club-profile">
+              <Item {...item} />
             </Link>
-          ) : null
-        )}
+          ) : null;
+        })}
       </div>
     </div>
   );
 };
 
 const Clubs = () => {
+  const [clubList, setClubList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await club();
+      setClubList(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <CategorySection category="technical club" />
-      <CategorySection category="cultural club" />
-      <CategorySection category="affinity groups" />
+      <CategorySection category="TECHNICAL" clubs={clubList} />
+      <CategorySection category="CULTURAL" clubs={clubList} />
+      <CategorySection category="AFFINITY" clubs={clubList} />
     </div>
   );
 };

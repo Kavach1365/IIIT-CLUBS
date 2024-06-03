@@ -1,9 +1,9 @@
 // import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-const recentEvents = async () => {
+const events = async () => {
   let recentEventsList;
   try {
-    const response = await axios.get("http://localhost:8005/upcoming-events");
+    const response = await axios.get("http://localhost:8005/events");
     recentEventsList = response.data;
   } catch (e) {
     recentEventsList = [];
@@ -12,4 +12,4 @@ const recentEvents = async () => {
   return recentEventsList;
 };
 
-export default recentEvents;
+export default events;
