@@ -52,7 +52,7 @@ const Card = (props) => {
     <div>
       <div className="executive-card">
         <div>
-          <img className="image" src={props.imgUrl} />
+          <img className="image" src={props.imgUrl} alt="ClubCardImg" />
         </div>
         <h1 className="name">{props.name}</h1>
         <p className="role">{props.role}</p>

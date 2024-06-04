@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+>>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b
 // import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -7,10 +10,17 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { INITIAL_EVENTS, createEventId } from "./eventutils";
 
+<<<<<<< HEAD
 export default function Calendar() {
   // const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState(INITIAL_EVENTS);
   const navigate = useNavigate();
+=======
+const Calendar = () => {
+  // const [weekendsVisible, setWeekendsVisible] = useState(true);
+  const [currentEvents, setCurrentEvents] = useState(INITIAL_EVENTS);
+
+>>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b
   function handleDateSelect(selectInfo) {
     let title = prompt("Please enter a new title for your event");
     let calendarApi = selectInfo.view.calendar;
@@ -29,8 +39,18 @@ export default function Calendar() {
   }
 
   function handleEventClick(clickInfo) {
+<<<<<<< HEAD
     console.log(clickInfo.event["_def"].publicId);
     navigate("/");
+=======
+    if (
+      alert(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
+      clickInfo.event.remove();
+    }
+>>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b
   }
 
   function handleEvents(events) {
@@ -77,3 +97,8 @@ function renderEventContent(eventInfo) {
     </>
   );
 }
+<<<<<<< HEAD
+=======
+
+export default Calendar;
+>>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b

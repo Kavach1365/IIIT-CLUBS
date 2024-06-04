@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
+
+const uri =
+  "mongodb+srv://kavach:kavach123@cluster0.t0v6c.mongodb.net/club_council?retryWrites=true&w=majority&appName=Cluster0";
+
 mongoose
-  .connect("mongodb://0.0.0.0:27017/clubCouncil")
+  .connect(uri)
   .then(() => {
-    console.log("Mongodb connected");
+    console.log("Mongodb connected sucessfully");
   })
-  .catch(() => {
-    console.log("Failed");
+  .catch((error) => {
+    console.log("Failed to connect to MongoDB", error);
   });
 
-const upcomingEventsSchema = mongoose.Schema({
+const eventsSchema = mongoose.Schema({
   imgUrl: {
     type: String,
     required: true,
@@ -22,11 +26,11 @@ const upcomingEventsSchema = mongoose.Schema({
     required: true,
   },
   startDate: {
-    type: String,
+    type: Date,
     required: true,
   },
   endDate: {
-    type: String,
+    type: Date,
     required: true,
   },
   venue: {
@@ -50,7 +54,52 @@ const gallerySchema = mongoose.Schema({
   },
 });
 
-const upcomingEvent = mongoose.model("upcomingEvent", upcomingEventsSchema);
+const clubSchema = mongoose.Schema({
+  clubName: {
+    type: String,
+    required: true,
+  },
+  tagLine: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  clubImageUrl: {
+    type: String,
+    required: true,
+  },
+  clubBannerUrl: {
+    type: String,
+    required: true,
+  },
+  twitterUrl: {
+    type: String,
+    required: true,
+  },
+  instagramUrl: {
+    type: String,
+    required: true,
+  },
+  mailId: {
+    type: String,
+    required: true,
+  },
+  youtubeUrl: {
+    type: String,
+    required: true,
+  },
+});
 
-const addToGallery = mongoose.model("addToGallery", gallerySchema);
-module.exports = { upcomingEvent, addToGallery };
+const event = mongoose.model("event", eventsSchema);
+
+const gallery = mongoose.model("gallery", gallerySchema);
+
+const club = mongoose.model("club", clubSchema);
+module.exports = { event, gallery, club };

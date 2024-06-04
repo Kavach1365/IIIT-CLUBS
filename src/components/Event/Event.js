@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import recentEvents from "../../utils/recentEvents";
+import events from "../../utils/events";
 import { SlCalender } from "react-icons/sl";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaUserGroup } from "react-icons/fa6";
@@ -10,7 +10,7 @@ const Event = () => {
   const [recentEventsList, setRecentEventsList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await recentEvents();
+      const data = await events();
       setRecentEventsList(data);
     };
     fetchData();
