@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { event, gallery, club } = require("./mongo");
+const { event, gallery, club, clubMember } = require("./mongo");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -150,6 +150,53 @@ app.get("/upComing-events", async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).send("Error in fetching the data!");
+  }
+});
+
+app.post("/add-club-member", async (req, res) => {
+  const { memberId, name, clubName, imageUrl, branch, position } = req.body;
+  const data = {
+    memberId,
+    name,
+    clubName,
+    imageUrl,
+    branch,
+    position,
+  };
+  //console.log(data);
+  try {
+    await clubMember.insertMany([data]);
+    res.status(200).send("Data added successfully");
+    //console.log("Data added successfully");
+  } catch (e) {
+    // console.log("Data not added");
+    //console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+app.get("/club-members", async (req, res) => {
+  const { clubName } = req.query;
+  try {
+    const data = await clubMember.find({ clubName: clubName });
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+app.get("/club-events", async (req, res) => {
+  const { clubName } = req.query;
+  //console.log(clubName);
+  try {
+    const data = await event
+      .find({ clubName: clubName })
+      .sort({ startDate: 1 });
+
+    //console.log(data);
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send(e);
   }
 });
 

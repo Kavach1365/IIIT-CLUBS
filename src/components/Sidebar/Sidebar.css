@@ -1,3 +1,4 @@
-.isactive {
-  background-color: black;
+.active {
+  background-color: blue;
+  color: blue;
 }
