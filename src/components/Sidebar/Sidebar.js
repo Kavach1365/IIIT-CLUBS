@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { FaRegCompass } from "react-icons/fa6";
 import { FaTicketAlt } from "react-icons/fa";
@@ -25,117 +25,108 @@ const Sidebar = () => {
       />
       <div className="mt-10">
         <div className="mb-6">
-          <Link to="/" onClick={() => onChangeActiveTabId("/")}>
-            <div
-              className={
-                activeTabID === "/"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <GoHome className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Home</p>
-            </div>
-          </Link>
-          <Link to="/clubs" onClick={() => onChangeActiveTabId("/clubs")}>
-            <div
-              className={
-                activeTabID === "/clubs"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <FaRegCompass className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Clubs</p>
-            </div>
-          </Link>
-          <Link to="/events" onClick={() => onChangeActiveTabId("/events")}>
-            <div
-              className={
-                activeTabID === "/events"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <FaTicketAlt className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Events</p>
-            </div>
-          </Link>
-          <Link to="/calender" onClick={() => onChangeActiveTabId("/calender")}>
-            <div
-              className={
-                activeTabID === "/calender"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <SlCalender className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Calender</p>
-            </div>
-          </Link>
-          <Link to="/gallery" onClick={() => onChangeActiveTabId("/gallery")}>
-            <div
-              className={
-                activeTabID === "/gallery"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <GrGallery className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Gallery</p>
-            </div>
-          </Link>
+          <NavLink
+            to="/"
+            onClick={() => onChangeActiveTabId("/")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
+          >
+            <GoHome className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Home</p>
+          </NavLink>
+          <NavLink
+            to="/clubs"
+            onClick={() => onChangeActiveTabId("/clubs")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
+          >
+            <FaRegCompass className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Clubs</p>
+          </NavLink>
+          <NavLink
+            to="/events"
+            onClick={() => onChangeActiveTabId("/events")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
+          >
+            <FaTicketAlt className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Events</p>
+          </NavLink>
+          <NavLink
+            to="/calender"
+            onClick={() => onChangeActiveTabId("/calender")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
+          >
+            <SlCalender className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Calender</p>
+          </NavLink>
+          <NavLink
+            to="/gallery"
+            onClick={() => onChangeActiveTabId("/gallery")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
+          >
+            <GrGallery className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Gallery</p>
+          </NavLink>
         </div>
         <div className="mb-4">
           <h1 className="font-semibold text-sm pl-6 mb-2">ABOUT</h1>
-          <Link
+          <NavLink
             to="/about/club-council"
             onClick={() => onChangeActiveTabId("/about/club-council")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
           >
-            <div
-              className={
-                activeTabID === "/about/club-council"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <GoHome className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Club Council</p>
-            </div>
-          </Link>
-          <Link
+            <GoHome className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Club Council</p>
+          </NavLink>
+          <NavLink
             to="/about/supervisory-bodies"
             onClick={() => onChangeActiveTabId("/about/supervisory-bodies")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
           >
-            <div
-              className={
-                activeTabID === "/about/supervisory-bodies"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <IoIosInformationCircleOutline className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Supervisory Bodies</p>
-            </div>
-          </Link>
+            <IoIosInformationCircleOutline className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Supervisory Bodies</p>
+          </NavLink>
         </div>
         <div className="mb-4">
           <h1 className="font-semibold text-sm pl-6 mb-2">HELP</h1>
-          <Link
+          <NavLink
             to="/bug-report"
             onClick={() => onChangeActiveTabId("/bug-report")}
+            className={({ isActive }) =>
+              isActive
+                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
+                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
+            }
           >
-            <div
-              className={
-                activeTabID === "/bug-report"
-                  ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                  : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-              }
-            >
-              <FaBug className=" text-gray-500 mr-4" />
-              <p className="text-gray-500 ">Report Bugs & Features</p>
-            </div>
-          </Link>
+            <FaBug className=" text-gray-500 mr-4" />
+            <p className="text-gray-500 ">Report Bugs & Features</p>
+          </NavLink>
         </div>
       </div>
     </div>
