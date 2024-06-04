@@ -35,11 +35,11 @@ const Event = () => {
   console.log(imgUrl);
   return (
     <div className="flex">
-      <div className="w-6/12 mr-10">
+      <div className="w-6/12 mr-10 ">
         <img
           src={imgUrl}
           alt={eventName}
-          className="w-full rounded-xl shadow-xl shadow-gray-300 h-full"
+          className="w-full rounded-xl shadow-xl shadow-gray-300"
         />
       </div>
       <div className="flex flex-col w-6/12">

@@ -7,17 +7,18 @@ import { SlCalender } from "react-icons/sl";
 import { GrGallery } from "react-icons/gr";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { FaBug } from "react-icons/fa";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-const Sidebar = () => {
-  const name = useLocation();
-  console.log(name.pathname);
-  const [activeTabID, changeActiveTabId] = useState(name.pathname);
+// import { useState } from "react";
+// import { useLocation } from "react-router-dom";
 
-  const onChangeActiveTabId = (value) => changeActiveTabId(value);
+const Sidebar = () => {
+  // const name = useLocation();
+  // console.log(name.pathname);
+  // const [activeTabID, changeActiveTabId] = useState(name.pathname);
+
+  // const onChangeActiveTabId = (value) => changeActiveTabId(value);
 
   return (
-    <div className="max-h-screen pr-2">
+    <div className="max-h-screen pr-2 ">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFJwFN7MZ4YmxE2NbnsMKaXG-I0VgtMyFdpwc8Cr5PLa0EwC7dZiaktR0kGfzKktfiexg&usqp=CAU"
         alt="ClubCouncilLogo"
@@ -27,7 +28,7 @@ const Sidebar = () => {
         <div className="mb-6">
           <NavLink
             to="/"
-            onClick={() => onChangeActiveTabId("/")}
+            // onClick={() => onChangeActiveTabId("/")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -39,7 +40,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             to="/clubs"
-            onClick={() => onChangeActiveTabId("/clubs")}
+            // onClick={() => onChangeActiveTabId("/clubs")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -51,7 +52,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             to="/events"
-            onClick={() => onChangeActiveTabId("/events")}
+            // onClick={() => onChangeActiveTabId("/events")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -63,7 +64,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             to="/calender"
-            onClick={() => onChangeActiveTabId("/calender")}
+            // onClick={() => onChangeActiveTabId("/calender")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -75,7 +76,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             to="/gallery"
-            onClick={() => onChangeActiveTabId("/gallery")}
+            // onClick={() => onChangeActiveTabId("/gallery")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -90,7 +91,7 @@ const Sidebar = () => {
           <h1 className="font-semibold text-sm pl-6 mb-2">ABOUT</h1>
           <NavLink
             to="/about/club-council"
-            onClick={() => onChangeActiveTabId("/about/club-council")}
+            // onClick={() => onChangeActiveTabId("/about/club-council")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -102,7 +103,7 @@ const Sidebar = () => {
           </NavLink>
           <NavLink
             to="/about/supervisory-bodies"
-            onClick={() => onChangeActiveTabId("/about/supervisory-bodies")}
+            // onClick={() => onChangeActiveTabId("/about/supervisory-bodies")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
@@ -117,7 +118,7 @@ const Sidebar = () => {
           <h1 className="font-semibold text-sm pl-6 mb-2">HELP</h1>
           <NavLink
             to="/bug-report"
-            onClick={() => onChangeActiveTabId("/bug-report")}
+            // onClick={() => onChangeActiveTabId("/bug-report")}
             className={({ isActive }) =>
               isActive
                 ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`

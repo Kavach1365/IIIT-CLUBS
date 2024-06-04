@@ -3,19 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@fullcalendar/core": "^6.1.10",
-    "@fullcalendar/daygrid": "^6.1.10",
-    "@fullcalendar/interaction": "^6.1.10",
-    "@fullcalendar/react": "^6.1.10",
-    "@fullcalendar/timegrid": "^6.1.10",
-=======
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/react": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
->>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b
+    "@humanwhocodes/object-schema": "^2.0.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -27,14 +20,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
-<<<<<<< HEAD
-    "react-router-dom": "^6.23.1",
-    "react-scripts": "5.0.1",
-=======
     "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
-    "react-scripts": "^3.0.1",
->>>>>>> 04790cb7b48e5f687fcdc20430c629888fcf484b
     "react-spinners": "^0.13.8",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
