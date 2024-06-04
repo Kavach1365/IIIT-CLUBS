@@ -156,11 +156,11 @@ app.get("/upComing-events", async (req, res) => {
   const todayDate = new Date();
   try {
     const data = await event.find({ startDate: { $gt: todayDate } });
-    console.log("Upbsdb");
-    console.log(data);
+    // console.log("Upbsdb");
+    // console.log(data);
     res.status(200).send(data);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(500).send("Error in fetching the data!");
   }
 });

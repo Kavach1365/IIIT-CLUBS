@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { formatDate } from "@fullcalendar/core";
+import React, { useEffect, useState } from "react";
+// import { formatDate } from "@fullcalendar/core";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -9,26 +9,25 @@ import allEvents from "../../utils/allEvents";
 // import { useNavigate } from "react-router-dom";
 
 const Calendar = () => {
-  const [weekendsVisible, setWeekendsVisible] = useState(true);
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [allEventsList, setAllEventsList] = useState([]);
+  const [isFetched, setIsFetched] = useState(false);
 
-  function handleDateSelect(selectInfo) {
-    let title = prompt("Please enter a new title for your event");
-    let calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
-  }
-
+  useEffect(() => {
+    const fetchData = async () => {
+      const allEventsData = await allEvents();
+      // console.log(allEventsData);
+      const formattedEventsData = allEventsData.map((event) => ({
+        id: event._id,
+        title: event.eventName,
+        start: event.startDate.split(".")[0],
+        end: event.endDate.split(".")[0],
+      }));
+      // console.log(formattedEventsData);
+      setAllEventsList(formattedEventsData);
+      setIsFetched(true);
+    };
+    fetchData();
+  }, []);
   function handleEventClick(clickInfo) {
     // const eventId = clickInfo.event._def.publicId;
     // const eventUrl = `/events/${eventId}`;
@@ -37,32 +36,32 @@ const Calendar = () => {
   // console.log(allEventsList);
   return (
     <div className="demo-app">
-      <div className="demo-app-main">
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: "title",
-            right: "today prev,next",
-            center: "",
-          }}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={weekendsVisible}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-          select={handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
+      {isFetched && (
+        <div className="demo-app-main">
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+              left: "title",
+              right: "today prev,next",
+              center: "",
+            }}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            weekends={true}
+            initialEvents={allEventsList} // alternatively, use the `events` setting to fetch from a feed
+            eventContent={renderEventContent} // custom render function
+            eventClick={handleEventClick}
+            /*eventsSet={allEventsList} // called after events are initialized/added/changed/removed
+          you can update a remote database when these fire:
           eventAdd={function(){}}
           eventChange={function(){}}
           eventRemove={function(){}}
           */
-        />
-      </div>
+          />
+        </div>
       )}
     </div>
   );
