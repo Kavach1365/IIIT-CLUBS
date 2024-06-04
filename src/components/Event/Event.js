@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import events from "../../utils/events";
 import { SlCalender } from "react-icons/sl";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaUserGroup } from "react-icons/fa6";
+import specificEvent from "../../utils/specificEvent";
 
 const Event = () => {
   const { id } = useParams();
   const [recentEventsList, setRecentEventsList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await events();
+      const data = await specificEvent(id);
       setRecentEventsList(data);
     };
     fetchData();
-  }, []);
+  }, [id]);
   /*Need to add shimmer Effect */
 
   if (recentEventsList.length === 0) {
     return <h1>No events yet!</h1>;
   }
-  const event = recentEventsList.filter((eachEvent) => eachEvent._id === id);
+
   const {
     imgUrl,
     eventName,
@@ -30,8 +30,7 @@ const Event = () => {
     venue,
     eligibility,
     description,
-  } = event[0];
-  console.log(event);
+  } = recentEventsList[0];
   console.log(imgUrl);
   return (
     <div className="flex">

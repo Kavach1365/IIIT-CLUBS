@@ -8,17 +8,6 @@ app.use(cors());
 
 app.get("/", cors(), (req, res) => {});
 
-app.get("/events", async (req, res) => {
-  try {
-    const data = await event.find();
-    // console.log(data);
-    res.send(data);
-  } catch (e) {
-    console.log(e);
-    res.status(500).send("Error fetching data!");
-  }
-});
-
 app.post("/add-event", async (req, res) => {
   const {
     clubName,
@@ -152,10 +141,22 @@ app.get("/all-events", async (req, res) => {
   }
 });
 
+app.get("/all-events/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await event.find({ _id: id });
+    console.log(data);
+    res.status(200).send(data);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
 app.get("/upComing-events", async (req, res) => {
   const todayDate = new Date();
   try {
-    const data = await event.find({ startDate: { $gt: todayDate } });
+    const data = await event.find({ startDate: { $gte: todayDate } });
     // console.log("Upbsdb");
     // console.log(data);
     res.status(200).send(data);
@@ -168,11 +169,11 @@ app.get("/completed-events", async (req, res) => {
   const todayDate = new Date();
   try {
     const data = await event.find({ startDate: { $lt: todayDate } });
-    console.log("completed-events");
-    console.log(data);
+    // console.log("completed-events");
+    // console.log(data);
     res.status(200).send(data);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
     res.status(500).send("Error in fetching the data!");
   }
 });
