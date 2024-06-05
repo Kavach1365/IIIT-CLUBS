@@ -1,0 +1,61 @@
+.bug-report-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #e9ebec;
+  box-shadow: 0 0 10px rgba(130, 208, 234, 0.1);
+}
+
+.bug-report-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.bug-report-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: vertical; /* Allow vertical resizing of textarea */
+}
+
+.submit-button {
+  background-color: #6b92f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.heading {
+  font-weight: 800;
+  font-family: "Roboto";
+  text-align: center;
+}
+
+.label {
+  font-family: "Roboto";
+}

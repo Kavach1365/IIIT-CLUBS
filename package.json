@@ -2,6 +2,7 @@
   "name": "council",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8005",
   "dependencies": {
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
@@ -16,6 +17,7 @@
     "cors": "^2.8.5",
     "lightgallery": "^2.7.2",
     "mongoose": "^8.3.2",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
