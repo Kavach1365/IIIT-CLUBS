@@ -13,11 +13,11 @@ const Header = () => {
       <img
         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
         alt="ProfileImage"
-        className="rounded-full w-12 cursor-pointer "
+        className="rounded-full w-12 cursor-pointer relative"
         onClick={toggleDropdown}
       />
       {isOpen && (
-        <div className="mt-2 flex flex-col items-center">
+        <div className="mt-2 flex flex-col items-center absolute">
           <button className="px-3 py-1 rounded-lg bg-blue-50">Login</button>
         </div>
       )}

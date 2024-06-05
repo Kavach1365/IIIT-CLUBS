@@ -18,7 +18,7 @@ const Sidebar = () => {
       />
       <div className="mt-10">
         <div className="mb-6">
-          <NavLink exact to="/" className="nav-item" activeClassName="active">
+          <NavLink to="/" className="nav-item" activeclassname="active">
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer  pl-4">
               <GoHome className="text-gray-700 mr-4" />
               <p className="text-gray-700 font-medium title nav-item-text">
@@ -26,19 +26,19 @@ const Sidebar = () => {
               </p>
             </div>
           </NavLink>
-          <NavLink to="/clubs" className="nav-item" activeClassName="active">
+          <NavLink to="/clubs" className="nav-item" activeclassname="active">
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer  pl-4">
               <FaRegCompass className="text-gray-500 mr-4" />
               <p className="text-gray-700 font-medium nav-item-text">Clubs</p>
             </div>
           </NavLink>
-          <NavLink to="/events" className="nav-item" activeClassName="active">
+          <NavLink to="/events" className="nav-item" activeclassname="active">
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <FaTicketAlt className="text-gray-500 mr-4" />
               <p className="text-gray-700 font-medium nav-item-text">Events</p>
             </div>
           </NavLink>
-          <NavLink to="/calender" className="nav-item" activeClassName="active">
+          <NavLink to="/calender" className="nav-item" activeclassname="active">
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <SlCalender className="text-gray-500 mr-4" />
               <p className="text-gray-700 font-medium nav-item-text">
@@ -46,7 +46,7 @@ const Sidebar = () => {
               </p>
             </div>
           </NavLink>
-          <NavLink to="/gallery" className="nav-item" activeClassName="active">
+          <NavLink to="/gallery" className="nav-item" activeclassname="active">
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <GrGallery className="text-gray-500 mr-4" />
               <p className="text-gray-700 font-medium nav-item-text">Gallery</p>
@@ -55,7 +55,7 @@ const Sidebar = () => {
           <NavLink
             to="/notice-board"
             className="nav-item"
-            activeClassName="active"
+            activeclassname="active"
           >
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <HiOutlineSpeakerphone className="text-gray-500 mr-4" />
@@ -70,7 +70,7 @@ const Sidebar = () => {
           <NavLink
             to="/about/club-council"
             className="nav-item"
-            activeClassName="active"
+            activeclassname="active"
           >
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <GoHome className="text-gray-500 mr-4" />
@@ -82,7 +82,7 @@ const Sidebar = () => {
           <NavLink
             to="/about/supervisory-bodies"
             className="nav-item"
-            activeClassName="active"
+            activeclassname="active"
           >
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <IoIosInformationCircleOutline className="text-gray-500 mr-4" />
@@ -97,7 +97,7 @@ const Sidebar = () => {
           <NavLink
             to="/bug-report"
             className="nav-item"
-            activeClassName="active"
+            activeclassname="active"
           >
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <FaBug className="text-gray-500 mr-4" />

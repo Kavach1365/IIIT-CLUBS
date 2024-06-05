@@ -29,7 +29,7 @@ const EditEvents = () => {
           {upcomingEventsList.map((event) => (
             <div
               to={`/events/${event._id}`}
-              className="w-56 rounded-xl shadow-xl cursor-pointer m-1 mb-2"
+              className="w-60 rounded-xl shadow-xl cursor-pointer m-1 mb-2"
               key={event._id}
             >
               <div className="h-92">

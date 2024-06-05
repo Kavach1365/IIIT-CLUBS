@@ -16,11 +16,11 @@ const Footer = () => {
             alt="ClubCouncilLogo"
             className="w-20 bg-black rounded-full"
           />
-          <img
+          {/* <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFJwFN7MZ4YmxE2NbnsMKaXG-I0VgtMyFdpwc8Cr5PLa0EwC7dZiaktR0kGfzKktfiexg&usqp=CAU"
             alt="ClubCouncilLogo"
             className="w-20 bg-black rounded-full"
-          />
+          /> */}
         </div>
         <div className="flex w-3/12 justify-around text-2xl">
           <MdOutlineEmail />

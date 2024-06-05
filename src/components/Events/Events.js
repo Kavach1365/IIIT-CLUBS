@@ -23,7 +23,7 @@ const Events = () => {
         {upcomingEventsList.map((event) => (
           <Link
             to={`/events/${event._id}`}
-            className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
+            className="w-60 rounded-xl shadow-xl hover:scale-105 cursor-pointer m-2 mb-2"
             key={event._id}
           >
             <div className="h-92">
@@ -47,7 +47,7 @@ const Events = () => {
         {completedEventsList.map((event) => (
           <Link
             to={`/events/${event._id}`}
-            className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
+            className="w-60 rounded-xl shadow-xl hover:scale-105 cursor-pointer m-2 mb-2"
             key={event._id}
           >
             <div className="h-92">

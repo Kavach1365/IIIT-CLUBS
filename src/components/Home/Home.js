@@ -47,7 +47,7 @@ const Home = () => {
         <div className="flex justify-between">
           <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
           <Link to="/events">
-            <h1 className="font-semibold">View All{">"}</h1>
+            <h1 className="font-semibold hover:underline">View All {">"}</h1>
           </Link>
         </div>
         {recentEventsList === null ? (
@@ -63,7 +63,7 @@ const Home = () => {
             {recentEventsList.map((event) => (
               <Link
                 to={`/events/${event._id}`}
-                className="w-1/5 rounded-xl shadow-xl hover:scale-105 cursor-pointer m-1 mr-6 mb-2"
+                className="w-60 rounded-xl shadow-xl hover:scale-105 cursor-pointer m-1 mr-6 mb-2"
                 key={event._id}
               >
                 <div className="h-92">
@@ -99,7 +99,7 @@ const Home = () => {
           contributing to the all around development of the students.
         </p>
         <div className="flex mb-12">
-          <div className="bg-blue-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-blue-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-blue-200 rounded-full p-4 mt-2">
               <GrTechnology />
             </div>
@@ -110,7 +110,7 @@ const Home = () => {
               <p className="text-blue-600 font-semibold">Technical Clubs</p>
             </div>
           </div>
-          <div className="bg-yellow-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-yellow-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-yellow-200 rounded-full p-4 mt-2">
               <IoMdMusicalNote />
             </div>
@@ -121,7 +121,7 @@ const Home = () => {
               <p className="text-yellow-600 font-semibold">Cultural Clubs</p>
             </div>
           </div>
-          <div className="bg-gray-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-gray-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-gray-200 rounded-full p-4 mt-2">
               <RiServiceFill />
             </div>
@@ -142,7 +142,7 @@ const Home = () => {
           affiliated and associate student-led Clubs, Groups & Societies.
         </p>
         <div className="flex mb-12">
-          <div className="bg-green-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-green-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-green-200 rounded-full p-4 mt-2">
               <MdGroups3 />
             </div>
@@ -155,7 +155,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <div className="bg-red-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-red-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-red-200 rounded-full p-4 mt-2">
               <RiGraduationCapFill />
             </div>
@@ -166,7 +166,7 @@ const Home = () => {
               <p className="text-red-600 font-semibold">Student Coordinators</p>
             </div>
           </div>
-          <div className="bg-purple-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-44">
+          <div className="bg-purple-100 w-3/4 rounded-xl flex flex-col items-center justify-around mr-4 h-48">
             <div className="bg-purple-200 rounded-full p-4 mt-2">
               <IoMapSharp />
             </div>

@@ -206,9 +206,11 @@ app.get("/upComing-events", async (req, res) => {
 app.get("/completed-events", async (req, res) => {
   const todayDate = new Date();
   try {
-    const data = await event.find({ startDate: { $lt: todayDate } });
+    const data = await event
+      .find({ startDate: { $lt: todayDate } })
+      .sort({ startDate: -1 });
     // console.log("completed-events");
-    // console.log(data);
+    console.log(data);
     res.status(200).send(data);
   } catch (e) {
     //console.log(e);

@@ -6,7 +6,7 @@ const ShimmerHome = () => {
       {Array.from({ length: 4 }, (_, i) => (
         <div
           key={i}
-          className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
+          className="w-60 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
         >
           <div className="h-92">
             <div className="h-60 bg-gray-300"></div>

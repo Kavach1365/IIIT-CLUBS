@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import allEvents from "../../utils/allEvents";
 import "./NoticeBoard.css";
+import { formatDateForEvents } from "../../utils/formatDateForEvents";
 
 const Notice = ({ notice, onClickEvent, setOnClickEvent }) => {
   const { clubName, startDate, eventName, _id, description } = notice;
@@ -18,7 +19,7 @@ const Notice = ({ notice, onClickEvent, setOnClickEvent }) => {
     <div className="notice-card-container">
       <div className="notice-card">
         <div className="notice-card-header-section">
-          <h2>{startDate}</h2>
+          <h2>{formatDateForEvents(new Date(startDate))}</h2>
           <h2>{clubName}</h2>
           <h2>{eventName}</h2>
         </div>
