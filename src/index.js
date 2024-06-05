@@ -17,6 +17,7 @@ import GalleryMain from "./components/Gallery/GalleryMain";
 import ClubProfile from "./components/ClubProfile/ClubProfile";
 import AddClub from "./components/Clubs/AddClub";
 import AddClubMember from "./components/AddClubMember/AddClubMember";
+import NoticeBoard from "./components/NoticeBoard/NoticeBoard";
 
 const appRouter = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/add-club-member",
         element: <AddClubMember />,
+      },
+      {
+        path: "/notice-board",
+        element: <NoticeBoard />,
       },
     ],
   },

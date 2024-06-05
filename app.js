@@ -134,7 +134,7 @@ app.get("/clubProfile", async (req, res) => {
 
 app.get("/all-events", async (req, res) => {
   try {
-    const data = await event.find({});
+    const data = await event.find({}).sort({ startDate: -1 });
     // console.log(data);
     res.status(200).send(data);
   } catch (e) {
@@ -218,7 +218,7 @@ app.get("/club-events", async (req, res) => {
   try {
     const data = await event
       .find({ clubName: clubName })
-      .sort({ startDate: 1 });
+      .sort({ startDate: -1 });
 
     //console.log(data);
     res.status(200).send(data);

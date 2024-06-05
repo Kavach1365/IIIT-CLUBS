@@ -3,9 +3,10 @@ import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { FaRegCompass, FaTicketAlt, FaBug } from "react-icons/fa";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 import { SlCalender } from "react-icons/sl";
 import { GrGallery } from "react-icons/gr";
-import { IoIosInformationCircleOutline } from "react-icons/io";
 
 const Sidebar = () => {
   return (
@@ -49,6 +50,18 @@ const Sidebar = () => {
             <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
               <GrGallery className="text-gray-500 mr-4" />
               <p className="text-gray-700 font-medium nav-item-text">Gallery</p>
+            </div>
+          </NavLink>
+          <NavLink
+            to="/notice-board"
+            className="nav-item"
+            activeClassName="active"
+          >
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <HiOutlineSpeakerphone className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Notice Board
+              </p>
             </div>
           </NavLink>
         </div>
