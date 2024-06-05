@@ -4,6 +4,7 @@ import events from "../../utils/events";
 import { SlCalender } from "react-icons/sl";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaUserGroup } from "react-icons/fa6";
+import { formatDateForEvents } from "../../utils/formatDateForEvents";
 
 const Event = () => {
   const { id } = useParams();
@@ -45,9 +46,9 @@ const Event = () => {
       <div className="flex flex-col w-6/12">
         <div className="flex items-center text-gray-700">
           <SlCalender className="mr-4" />
-          <p>{startDate}</p>
-          <p>{" - "}</p>
-          <p>{endDate}</p>
+          <p>{formatDateForEvents(new Date(startDate))}</p>
+          <p className="pl-1 pr-1">{" - "}</p>
+          <p>{formatDateForEvents(new Date(endDate))}</p>
         </div>
         <h1 className="text-3xl font-bold mt-3 mb-3">{eventName}</h1>
         <div className="w-2/6 mt-3 mb-3 cursor-pointer">
@@ -62,7 +63,10 @@ const Event = () => {
             <FaUserGroup className="mr-4" />
             <div className="flex">
               {eligibility.map((each) => (
-                <div className="mr-2  bg-blue-200 rounded-2xl pl-4 pr-4 pt-1 pb-1">
+                <div
+                  key={each}
+                  className="mr-2  bg-blue-200 rounded-2xl pl-4 pr-4 pt-1 pb-1"
+                >
                   <p className="font-semibold">{each}</p>
                 </div>
               ))}

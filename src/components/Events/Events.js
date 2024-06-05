@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import upComingEvents from "../../utils/upComingEvents";
 import completedEvents from "../../utils/completedEvents";
 import { Link } from "react-router-dom";
+import { formatDateForEvents } from "../../utils/formatDateForEvents";
 
 const Events = () => {
   const [upcomingEventsList, setUpcomingEventsList] = useState([]);
@@ -35,7 +36,7 @@ const Events = () => {
               </div>
               <div className="flex flex-col justify-center h-32 pl-6 ">
                 <h2>{event.eventName}</h2>
-                <p>{event.startDate}</p>
+                <p>{formatDateForEvents(new Date(event.startDate))}</p>
               </div>
             </div>
           </Link>
@@ -59,7 +60,7 @@ const Events = () => {
               </div>
               <div className="flex flex-col justify-center h-32 pl-6 ">
                 <h2>{event.eventName}</h2>
-                <p>{event.startDate}</p>
+                <p>{formatDateForEvents(new Date(event.startDate))}</p>
               </div>
             </div>
           </Link>

@@ -54,6 +54,42 @@ app.post("/add-event", async (req, res) => {
   }
 });
 
+app.put("/edit-event/:id", async (req, res) => {
+  const { id } = req.params;
+  const {
+    clubName,
+    eventName,
+    imgUrl,
+    startDate,
+    endDate,
+    venue,
+    eligibility,
+    description,
+  } = req.body;
+  //console.log(req.body);
+  const data = {
+    clubName,
+    eventName,
+    imgUrl,
+    startDate,
+    endDate,
+    venue,
+    eligibility,
+    description,
+  };
+
+  //console.log(data);
+
+  try {
+    await event.updateMany({ _id: id }, { $set: { ...data } });
+    res.send("Data edited successfully");
+    console.log("Data edited successfully");
+  } catch (e) {
+    //console.log("Data not added");
+    res.send(e);
+  }
+});
+
 app.post("/add-to-gallery", async (req, res) => {
   const { imgUrl } = req.body;
   const data = {

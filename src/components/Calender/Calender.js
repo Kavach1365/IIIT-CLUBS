@@ -19,8 +19,8 @@ const Calendar = () => {
       const formattedEventsData = allEventsData.map((event) => ({
         id: event._id,
         title: event.eventName,
-        start: event.startDate.split(".")[0],
-        end: event.endDate.split(".")[0],
+        start: event.startDate,
+        end: event.endDate,
       }));
       // console.log(formattedEventsData);
       setAllEventsList(formattedEventsData);
@@ -69,6 +69,7 @@ const Calendar = () => {
 
 function renderEventContent(eventInfo) {
   const eventId = eventInfo.event._def.publicId;
+  console.log(eventInfo.event);
   const classNames = [
     "bg-purple-900",
     "bg-fuchsia-600",

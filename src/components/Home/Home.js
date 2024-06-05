@@ -9,6 +9,7 @@ import { IoMapSharp } from "react-icons/io5";
 import images from "../../utils/images";
 import ShimmerHome from "./ShimmerHome";
 import upComingEvents from "../../utils/upComingEvents";
+import { formatDateForEvents } from "../../utils/formatDateForEvents";
 
 const Home = () => {
   const [recentEventsList, setRecentEventsList] = useState(null);
@@ -54,7 +55,7 @@ const Home = () => {
                   </div>
                   <div className="flex flex-col justify-center h-32 pl-6 ">
                     <h2>{event.eventName}</h2>
-                    <p>{event.startDate}</p>
+                    <p>{formatDateForEvents(new Date(event.startDate))}</p>
                   </div>
                 </div>
               </Link>
