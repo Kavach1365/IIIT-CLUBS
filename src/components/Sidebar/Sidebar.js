@@ -1,24 +1,16 @@
 import React from "react";
+import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
-import { FaRegCompass } from "react-icons/fa6";
-import { FaTicketAlt } from "react-icons/fa";
+import { FaRegCompass, FaTicketAlt, FaBug } from "react-icons/fa";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
+import { IoIosInformationCircleOutline } from "react-icons/io";
 import { SlCalender } from "react-icons/sl";
 import { GrGallery } from "react-icons/gr";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { FaBug } from "react-icons/fa";
-// import { useState } from "react";
-// import { useLocation } from "react-router-dom";
 
 const Sidebar = () => {
-  // const name = useLocation();
-  // console.log(name.pathname);
-  // const [activeTabID, changeActiveTabId] = useState(name.pathname);
-
-  // const onChangeActiveTabId = (value) => changeActiveTabId(value);
-
   return (
-    <div className="max-h-screen pr-2 ">
+    <div className="max-h-screen pr-2">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFJwFN7MZ4YmxE2NbnsMKaXG-I0VgtMyFdpwc8Cr5PLa0EwC7dZiaktR0kGfzKktfiexg&usqp=CAU"
         alt="ClubCouncilLogo"
@@ -26,107 +18,93 @@ const Sidebar = () => {
       />
       <div className="mt-10">
         <div className="mb-6">
-          <NavLink
-            to="/"
-            // onClick={() => onChangeActiveTabId("/")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
-          >
-            <GoHome className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Home</p>
+          <NavLink exact to="/" className="nav-item" activeClassName="active">
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer  pl-4">
+              <GoHome className="text-gray-700 mr-4" />
+              <p className="text-gray-700 font-medium title nav-item-text">
+                Home
+              </p>
+            </div>
+          </NavLink>
+          <NavLink to="/clubs" className="nav-item" activeClassName="active">
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer  pl-4">
+              <FaRegCompass className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">Clubs</p>
+            </div>
+          </NavLink>
+          <NavLink to="/events" className="nav-item" activeClassName="active">
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <FaTicketAlt className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">Events</p>
+            </div>
+          </NavLink>
+          <NavLink to="/calender" className="nav-item" activeClassName="active">
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <SlCalender className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Calender
+              </p>
+            </div>
+          </NavLink>
+          <NavLink to="/gallery" className="nav-item" activeClassName="active">
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <GrGallery className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">Gallery</p>
+            </div>
           </NavLink>
           <NavLink
-            to="/clubs"
-            // onClick={() => onChangeActiveTabId("/clubs")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
+            to="/notice-board"
+            className="nav-item"
+            activeClassName="active"
           >
-            <FaRegCompass className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Clubs</p>
-          </NavLink>
-          <NavLink
-            to="/events"
-            // onClick={() => onChangeActiveTabId("/events")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
-          >
-            <FaTicketAlt className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Events</p>
-          </NavLink>
-          <NavLink
-            to="/calender"
-            // onClick={() => onChangeActiveTabId("/calender")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
-          >
-            <SlCalender className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Calender</p>
-          </NavLink>
-          <NavLink
-            to="/gallery"
-            // onClick={() => onChangeActiveTabId("/gallery")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
-          >
-            <GrGallery className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Gallery</p>
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <HiOutlineSpeakerphone className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Notice Board
+              </p>
+            </div>
           </NavLink>
         </div>
         <div className="mb-4">
-          <h1 className="font-semibold text-sm pl-6 mb-2">ABOUT</h1>
+          <h1 className="font-bold text-sm pl-6 mb-2">ABOUT</h1>
           <NavLink
             to="/about/club-council"
-            // onClick={() => onChangeActiveTabId("/about/club-council")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
+            className="nav-item"
+            activeClassName="active"
           >
-            <GoHome className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Club Council</p>
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <GoHome className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Club Council
+              </p>
+            </div>
           </NavLink>
           <NavLink
             to="/about/supervisory-bodies"
-            // onClick={() => onChangeActiveTabId("/about/supervisory-bodies")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
+            className="nav-item"
+            activeClassName="active"
           >
-            <IoIosInformationCircleOutline className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Supervisory Bodies</p>
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <IoIosInformationCircleOutline className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Supervisory Bodies
+              </p>
+            </div>
           </NavLink>
         </div>
         <div className="mb-4">
-          <h1 className="font-semibold text-sm pl-6 mb-2">HELP</h1>
+          <h1 className="font-bold text-sm pl-6 mb-2">HELP</h1>
           <NavLink
             to="/bug-report"
-            // onClick={() => onChangeActiveTabId("/bug-report")}
-            className={({ isActive }) =>
-              isActive
-                ? `bg-blue-100 rounded-md flex items-center mb-2  h-10 pl-6 cursor-pointer`
-                : `flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 pl-6 cursor-pointer`
-            }
+            className="nav-item"
+            activeClassName="active"
           >
-            <FaBug className=" text-gray-500 mr-4" />
-            <p className="text-gray-500 ">Report Bugs & Features</p>
+            <div className="nav-item-content flex items-center mb-2 hover:bg-gray-100 hover:rounded-md h-10 cursor-pointer pl-4">
+              <FaBug className="text-gray-500 mr-4" />
+              <p className="text-gray-700 font-medium nav-item-text">
+                Report Bugs & Features
+              </p>
+            </div>
           </NavLink>
         </div>
       </div>

@@ -97,9 +97,39 @@ const clubSchema = mongoose.Schema({
   },
 });
 
+const clubMemberSchema = mongoose.Schema({
+  memberId: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  clubName: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  branch: {
+    type: String,
+    required: true,
+  },
+  position: {
+    type: String,
+    required: true,
+  },
+});
+
 const event = mongoose.model("event", eventsSchema);
 
 const gallery = mongoose.model("gallery", gallerySchema);
 
 const club = mongoose.model("club", clubSchema);
-module.exports = { event, gallery, club };
+
+const clubMember = mongoose.model("clubMember", clubMemberSchema);
+
+module.exports = { event, gallery, club, clubMember };

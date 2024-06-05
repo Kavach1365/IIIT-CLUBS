@@ -10,25 +10,46 @@ import images from "../../utils/images";
 import ShimmerHome from "./ShimmerHome";
 import upComingEvents from "../../utils/upComingEvents";
 import { formatDateForEvents } from "../../utils/formatDateForEvents";
+import completedEvents from "../../utils/completedEvents";
 
 const Home = () => {
   const [recentEventsList, setRecentEventsList] = useState(null);
   const [imagesList, setImagesList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await upComingEvents();
       let imagesArray = await images();
-      setRecentEventsList(data);
       imagesArray = imagesArray.splice(0, 12);
       setImagesList(imagesArray);
+
+      const upcomingEvents = await upComingEvents();
+      const completedEventsList = await completedEvents();
+
+      const recentEventsList = [];
+      if (upComingEvents.length > 4) {
+        recentEventsList.push(...upcomingEvents.splice(0, 4));
+      } else {
+        recentEventsList.push(...upcomingEvents);
+        const additionalEvents = completedEventsList.slice(
+          0,
+          4 - upcomingEvents.length
+        );
+        recentEventsList.push(...additionalEvents);
+      }
+
+      setRecentEventsList(recentEventsList);
     };
     fetchData();
   }, []);
   // const imagesList = images();
   return (
     <div>
-      <div className="mb-4">
-        <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
+      <div className="mb-4 mt-4">
+        <div className="flex justify-between">
+          <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
+          <Link to="/events">
+            <h1 className="font-semibold">View All{">"}</h1>
+          </Link>
+        </div>
         {recentEventsList === null ? (
           <ShimmerHome />
         ) : recentEventsList.length === 0 ? (
@@ -42,7 +63,7 @@ const Home = () => {
             {recentEventsList.map((event) => (
               <Link
                 to={`/events/${event._id}`}
-                className="w-56 rounded-xl shadow-xl hover:scale-95 cursor-pointer m-1 mb-2"
+                className="w-1/5 rounded-xl shadow-xl hover:scale-105 cursor-pointer m-1 mr-6 mb-2"
                 key={event._id}
               >
                 <div className="h-92">

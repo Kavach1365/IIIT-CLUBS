@@ -6,39 +6,40 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { LuFileBadge2 } from "react-icons/lu";
+import { HiUserGroup } from "react-icons/hi2";
 import "../ClubCouncil/ClubCouncil.css";
-import data from "../../utils/clubcouncil";
-import eventdata from "../../utils/eventlist";
 import clubProfile from "../../utils/clubProfile";
+import clubEvents from "../../utils/clubEvents";
+import clubMembers from "../../utils/clubMembers";
 
 const Card = (props) => {
   return (
     <div>
-      <div className="executive-card">
+      <div className="executive-card w-60 flex flex-col items-center border-emerald-900 border-2 ">
         <div>
-          <img className="image" src={props.imgUrl} alt="event-card" />
+          <img className="image" src={props.imageUrl} alt="event-card" />
         </div>
         <h1 className="name">{props.name}</h1>
-        <p className="role">{props.role}</p>
-        <p className="year">
+        <p className="role">{props.position}</p>
+        {/* <p className="year">
           {props.startYear}-{props.endYear}
-        </p>
+        </p> */}
       </div>
     </div>
   );
 };
 
-const Members = () => {
+const Members = ({ clubMembersList }) => {
   return (
     <div>
       <div>
-        <div className="flex text-2xl mt-8 items-center">
-          {<LuFileBadge2 />}
+        <div className="flex text-2xl mt-8 mb-8 items-center">
+          {<HiUserGroup />}
           <p className="font-semibold text-gray-800 pl-4">Members</p>
         </div>
       </div>
       <div className="executive-container">
-        {data.map((item) => (
+        {clubMembersList.map((item) => (
           <Card {...item} />
         ))}
       </div>
@@ -103,18 +104,25 @@ const Description = (props) => {
 };
 
 const EventCard = (props) => {
+  //console.log(props);
   return (
-    <div className="h-96 ml-1 mr-3 rounded-3xl bg-gray-50  hover:bg-gray-100 rounded-3xl">
-      <img src={props.imgUrl} className="h-60 rounded-t-3xl" alt="event" />
-      <div className="mt-6">
-        <h1 className="text-base font-semibold">{props.name}</h1>
-        <p className="text-gray-400 text-xs">{props.date}</p>
+    <Link to={`/events/${props._id}`}>
+      <div className="h-96 ml-1 mr-3 rounded-3xl bg-gray-50  hover:bg-gray-100">
+        <img
+          src={props.imgUrl}
+          className="h-60 w-60 rounded-t-3xl"
+          alt="event"
+        />
+        <div className="mt-6">
+          <h1 className="text-base font-semibold">{props.eventName}</h1>
+          <p className="text-gray-400 text-xs">{props.startDate}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
-const Events = () => {
+const Events = ({ eventsList }) => {
   return (
     <div>
       <div>
@@ -124,7 +132,7 @@ const Events = () => {
         </div>
       </div>
       <div className="executive-container">
-        {eventdata.map((item) => (
+        {eventsList.map((item) => (
           <EventCard {...item} />
         ))}
       </div>
@@ -136,11 +144,17 @@ const ClubProfile = () => {
   const { id } = useParams();
   //console.log(id);
   const [clubList, setClubList] = useState([]);
+  const [eventsList, setEventsList] = useState([]);
+  const [clubMembersList, setClubMembersList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await clubProfile(id);
+      const events = await clubEvents(data[0].clubName);
+      const members = await clubMembers(data[0].clubName);
       setClubList(data);
+      setEventsList(events);
+      setClubMembersList(members);
     };
     fetchData();
   }, [id]);
@@ -149,8 +163,8 @@ const ClubProfile = () => {
     <div>
       <Banner clubBannerUrl={clubList[0]?.clubBannerUrl} />
       <Description clubList={clubList[0]} />
-      <Events />
-      <Members />
+      <Events eventsList={eventsList} />
+      <Members clubMembersList={clubMembersList} />
     </div>
   );
 };

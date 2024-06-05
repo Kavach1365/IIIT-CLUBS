@@ -1,7 +1,18 @@
-.bg {
-  background-color: #e3fdfd;
+.nav-item {
+  text-decoration: none;
 }
 
-.isactive {
-  background-color: black;
+.nav-item .nav-item-content {
+  transition: background-color 0.3s;
+}
+
+.nav-item.active .nav-item-content {
+  font-weight: 900;
+  background: rgb(206, 227, 255);
+  border-radius: 0.5rem;
+  border: 1px solid rgb(137, 188, 255);
+}
+
+.nav-item.active .nav-item-text {
+  font-weight: 700;
 }
