@@ -32,10 +32,16 @@
 	margin-top: 60px;
   }
   
+  .logo_title_container {
+	display: flex;
+	align-items: center;
+	margin-top: 50px;
+  }
+  
   .login_title {
 	font-size: 40px;
-	margin-top: 40px;
   }
+  
   
   .login_input {
 	outline: none;

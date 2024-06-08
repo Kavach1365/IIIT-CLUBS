@@ -53,7 +53,14 @@ function Register() {
     <div className={styles.register_container}>
       <div className={styles.register_form_container}>
         <div className={styles.register_left}>
-          <h1 className={styles.register_title}>Register</h1>
+          <div className={styles.logo_title_container}>
+            <img
+              className="w-20"
+              src="https://i.ibb.co/nk1062c/club-Council-light-logo-no-BG.png"
+              alt="clubCouncil-logo"
+            />
+            <h1 className={styles.register_title}>Register</h1>
+          </div>
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {loading && <Loader />}
           <form className={styles.register_form} onSubmit={handleSubmit}>

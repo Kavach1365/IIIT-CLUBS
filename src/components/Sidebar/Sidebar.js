@@ -11,11 +11,13 @@ import { GrGallery } from "react-icons/gr";
 const Sidebar = () => {
   return (
     <div className="max-h-screen pr-2">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFJwFN7MZ4YmxE2NbnsMKaXG-I0VgtMyFdpwc8Cr5PLa0EwC7dZiaktR0kGfzKktfiexg&usqp=CAU"
-        alt="ClubCouncilLogo"
-        className="w-20 bg-black rounded-full"
-      />
+      <a href="/">
+        <img
+          src="https://i.ibb.co/pzggkrQ/club-Council-logo-with-Name-no-BG.png"
+          alt="ClubCouncilLogo"
+          className="w-25"
+        />
+      </a>
       <div className="mt-10">
         <div className="mb-6">
           <NavLink to="/" className="nav-item" activeclassname="active">

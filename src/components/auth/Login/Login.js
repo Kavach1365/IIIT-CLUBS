@@ -4,7 +4,7 @@ import styles from "./Login.module.css";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import ErrorMessage from "../Error/ErrorMessage";
+import ErrorMessage from "../Error/ErrorMessage";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -30,7 +30,6 @@ function Login() {
         },
         config
       );
-      // console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       navigate("/");
@@ -44,8 +43,15 @@ function Login() {
     <div className={styles.login_container}>
       <div className={styles.login_form_container}>
         <div className={styles.login_left}>
-          <h1 className={styles.login_title}>Login</h1>
-          {/* {error && <ErrorMessage variant="danger">{error}</ErrorMessage>} */}
+          <div className={styles.logo_title_container}>
+              <img
+                className="w-20"
+                src="https://i.ibb.co/nk1062c/club-Council-light-logo-no-BG.png"
+                alt="clubCouncil-logo"
+              />
+            <h1 className={styles.login_title}>Login</h1>
+          </div>
+          {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {loading && <Loader />}
           <form className={styles.login_form} onSubmit={handleSubmit}>
             <input
