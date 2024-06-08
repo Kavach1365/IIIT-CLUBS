@@ -1,0 +1,27 @@
+/* ErrorMessage.module.css */
+.errorMessage {
+  position: absolute;
+  margin-top: 100px;
+  height: 40px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: center;
+  width: 370px;
+}
+
+/* Define variants */
+.danger {
+  background-color: #f34646;
+  color: white;
+}
+
+.warning {
+  background-color: #ffcc00;
+  color: black;
+}
+
+.success {
+  background-color: #4caf50;
+  color: white;
+}

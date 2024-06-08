@@ -19,7 +19,8 @@ import AddClub from "./components/Clubs/AddClub";
 import EditEvents from "./components/EditEvents/EditEvents";
 import AddClubMember from "./components/AddClubMember/AddClubMember";
 import NoticeBoard from "./components/NoticeBoard/NoticeBoard";
-
+import Login from "./components/auth/Login/Login"
+import Register from "./components/auth/Register/Register"
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -87,6 +88,15 @@ const appRouter = createBrowserRouter([
       },
     ],
   },
+    {
+      path: "/login",
+      element: <Login/>,
+    },
+    {
+      path:"/signup",
+      element:<Register/>
+    },
+  
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

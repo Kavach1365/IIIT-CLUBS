@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const { event, gallery, club, clubMember } = require("./mongo");
+const userRoutes = require("./src/authentication/routes/user.routes")
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 
 app.get("/", cors(), (req, res) => {});
 
+app.use("/api/users/", userRoutes);
 app.post("/add-event", async (req, res) => {
   const {
     clubName,

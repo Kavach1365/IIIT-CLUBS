@@ -97,6 +97,56 @@ const clubSchema = mongoose.Schema({
   },
 });
 
+const userSchema = mongoose.Schema(
+  {
+    username: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+    studentId: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      require: true,
+      minLength: 4,
+    },
+    profileImg: {
+      type: String,
+      default: "https://shorturl.at/JjmV9",
+    },
+    department: {
+      type: String,
+      default: "",
+    },
+    year: {
+      type: String,
+      default: "",
+      require: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    clubsIn: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "club",
+        default: [],
+      },
+    ],
+  },
+  { timestamps: true }
+);
 const clubMemberSchema = mongoose.Schema({
   memberId: {
     type: String,
@@ -130,6 +180,8 @@ const gallery = mongoose.model("gallery", gallerySchema);
 
 const club = mongoose.model("club", clubSchema);
 
+const User = mongoose.model("User", userSchema);
+
 const clubMember = mongoose.model("clubMember", clubMemberSchema);
 
-module.exports = { event, gallery, club, clubMember };
+module.exports = { event, gallery, club, clubMember, User };

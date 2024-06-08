@@ -47,7 +47,7 @@ const Home = () => {
         <div className="flex justify-between">
           <h1 className="text-xl font-bold mb-4">Upcoming & Recent Events</h1>
           <Link to="/events">
-            <h1 className="font-semibold hover:underline">View All {">"}</h1>
+            <h1 className=" home font-semibold hover:underline">View All {">"}</h1>
           </Link>
         </div>
         {recentEventsList === null ? (
