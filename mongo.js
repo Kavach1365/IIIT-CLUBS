@@ -6,7 +6,7 @@ const uri =
 mongoose
   .connect(uri)
   .then(() => {
-    console.log("Mongodb connected sucessfully");
+    console.log("Mongodb connected successfully");
   })
   .catch((error) => {
     console.log("Failed to connect to MongoDB", error);
@@ -95,6 +95,10 @@ const clubSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  clubAdmins: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  }],
 });
 
 const userSchema = mongoose.Schema(
@@ -123,30 +127,28 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "https://shorturl.at/JjmV9",
     },
-    department: {
-      type: String,
-      default: "",
-    },
-    year: {
-      type: String,
-      default: "",
-      require: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
+    isSuperAdmin:{
+      type:Boolean,
+      default:false,
     },
     clubsIn: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "club",
-        default: [],
+        club: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "club",
+          required: true,
+        },
+        isClubAdmin: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
       },
     ],
   },
   { timestamps: true }
 );
+
 const clubMemberSchema = mongoose.Schema({
   memberId: {
     type: String,
@@ -171,6 +173,11 @@ const clubMemberSchema = mongoose.Schema({
   position: {
     type: String,
     required: true,
+  },
+  isClubAdmin: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import "./AddEvents.css";
 import { FaFile } from "react-icons/fa";
 import { FaSpinner } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 const AddEvents = () => {
+  const { id } = useParams(); 
   const [clubName, setClubName] = useState("");
   const [eventName, setEventName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -17,6 +19,20 @@ const AddEvents = () => {
   const [addEventImage, setAddEventImage] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  useEffect(() => {
+    // Fetch club details when the component mounts
+    const fetchClubDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8005/clubProfile?clubId=${id}`);
+        const clubData = response.data[0];
+        setClubName(clubData.clubName);
+      } catch (error) {
+        console.error("Error fetching club details:", error);
+      }
+    };
+    fetchClubDetails();
+  }, [id]);
 
   const uploadImage = async (e) => {
     e.preventDefault();
@@ -72,7 +88,7 @@ const AddEvents = () => {
     setErrorMessage(false);
     try {
       const res = await axios.post(
-        "http://localhost:8005/add-event",
+        `http://localhost:8005/add-event/${id}`,
         eventData
       );
       console.log(res);
@@ -94,18 +110,8 @@ const AddEvents = () => {
 
   return (
     <div>
-      <h1 className="add-event-title">Add Event</h1>
+      <h1 className="add-event-title">Add Event for {clubName}</h1>
       <form className="form-comp" onSubmit={addEventsData}>
-        <div className="form-group">
-          <label htmlFor="clubName">Club Name</label>
-          <input
-            type="text"
-            id="clubName"
-            placeholder="Enter the club name.."
-            onChange={(e) => setClubName(e.target.value)}
-            value={clubName}
-          />
-        </div>
         <div className="form-group">
           <label htmlFor="eventName">Event Name</label>
           <input

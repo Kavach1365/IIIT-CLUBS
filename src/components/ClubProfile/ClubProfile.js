@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { CgMail } from "react-icons/cg";
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { LuFileBadge2 } from "react-icons/lu";
 import { HiUserGroup } from "react-icons/hi2";
 import "../ClubCouncil/ClubCouncil.css";
@@ -21,26 +18,33 @@ const Card = (props) => {
         </div>
         <h1 className="name">{props.name}</h1>
         <p className="role">{props.position}</p>
-        {/* <p className="year">
-          {props.startYear}-{props.endYear}
-        </p> */}
       </div>
     </div>
   );
 };
 
-const Members = ({ clubMembersList }) => {
+const Members = ({ clubMembersList, isClubAdmin }) => {
+  const { id } = useParams();
   return (
     <div>
       <div>
         <div className="flex text-2xl mt-8 mb-8 items-center">
-          {<HiUserGroup />}
-          <p className="font-semibold text-gray-800 pl-4">Members</p>
+          <HiUserGroup />
+          <div className="flex justify-between flex-grow">
+            <p className="font-semibold text-gray-800 pl-4">Members</p>
+            {isClubAdmin && (
+              <Link to={`/add-club-member/${id}`}>
+                <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm">
+                  Add Members
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <div className="executive-container">
         {clubMembersList.map((item) => (
-          <Card {...item} />
+          <Card key={item.memberId} {...item} />
         ))}
       </div>
     </div>
@@ -48,7 +52,6 @@ const Members = ({ clubMembersList }) => {
 };
 
 const Banner = (props) => {
-  console.log(props.clubBannerUrl);
   return (
     <div className="h-52 overflow-hidden rounded-2xl">
       <img
@@ -70,32 +73,41 @@ const Description = (props) => {
     mailId,
     youtubeUrl,
   } = props.clubList;
-
+  const { id } = useParams();
   return (
     <div className="">
-      <div className="p-7 flex items-center">
-        <img
-          src={clubImageUrl}
-          className="w-24 h-24 rounded-full"
-          alt="profile-logo"
-        />
-        <div className="m-5">
-          <h1 className="text-3xl font-bold">{clubName}</h1>
-          <p className="text-gray-500 pt-2">{tagLine}</p>
+      <div className="p-7 flex items-center justify-between">
+        <div className="flex items-center">
+          <img
+            src={clubImageUrl}
+            className="w-24 h-24 rounded-full"
+            alt="profile-logo"
+          />
+          <div className="m-5">
+            <h1 className="text-3xl font-bold">{clubName}</h1>
+            <p className="text-gray-500 pt-2">{tagLine}</p>
+          </div>
         </div>
+        {props.isClubAdmin && (
+        <Link to={`/club-profile/${id}/edit`}>
+          <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+            Edit
+          </button>
+        </Link>
+        )}
       </div>
 
       <div className="pb-9">
         <p>{description}</p>
       </div>
       <div className="flex items-center gap-2 mb-8">
-        {<CgMail />}
+        <CgMail />
         <Link to={`mailto:${mailId}`}>Mail</Link>
-        {<FaInstagram />}
-        <Link to={instagramUrl}>Mail</Link>
-        {<FaFacebook />}
+        <FaInstagram />
+        <Link to={instagramUrl}>Instagram</Link>
+        <FaFacebook />
         <Link to={instagramUrl}>Facebook</Link>
-        {<FaYoutube />}
+        <FaYoutube />
         <Link to={youtubeUrl}>Youtube</Link>
       </div>
       <hr className="border-dotted" />
@@ -104,7 +116,6 @@ const Description = (props) => {
 };
 
 const EventCard = (props) => {
-  //console.log(props);
   return (
     <Link to={`/events/${props._id}`}>
       <div className="h-96 ml-1 mr-3 rounded-3xl bg-gray-50  hover:bg-gray-100">
@@ -122,18 +133,28 @@ const EventCard = (props) => {
   );
 };
 
-const Events = ({ eventsList }) => {
+const Events = ({ eventsList, isClubAdmin }) => {
+  const { id } = useParams();
   return (
     <div>
       <div>
         <div className="flex text-2xl m-4 pb-5 items-center">
-          {<LuFileBadge2 />}
-          <p className="font-semibold text-gray-800 pl-4">Events</p>
+          <LuFileBadge2 />
+          <div className="flex justify-between flex-grow">
+            <p className="font-semibold text-gray-800 pl-4">Events</p>
+            {isClubAdmin && (
+              <Link to={`/add-events/${id}`} className="ml-auto">
+                <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm">
+                  Add Events
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
       <div className="executive-container">
         {eventsList.map((item) => (
-          <EventCard {...item} />
+          <EventCard key={item._id} {...item} />
         ))}
       </div>
     </div>
@@ -142,19 +163,28 @@ const Events = ({ eventsList }) => {
 
 const ClubProfile = () => {
   const { id } = useParams();
-  //console.log(id);
   const [clubList, setClubList] = useState([]);
   const [eventsList, setEventsList] = useState([]);
   const [clubMembersList, setClubMembersList] = useState([]);
+  const [isClubAdmin, setIsClubAdmin] = useState(false); // State variable to track if the user is a club admin
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await clubProfile(id);
+      const data = await clubProfile({clubId:id});
       const events = await clubEvents(data[0].clubName);
       const members = await clubMembers(data[0].clubName);
       setClubList(data);
       setEventsList(events);
       setClubMembersList(members);
+
+      // Check if the user is a club admin by comparing with some user data in localStorage
+      const userInfo = localStorage.getItem("userInfo");
+      if (userInfo) {
+        const user = JSON.parse(userInfo);
+        if (user.isSuperAdmin || data[0].clubAdmins.includes(user._id)) {
+          setIsClubAdmin(true);
+        }
+      }
     };
     fetchData();
   }, [id]);
@@ -162,9 +192,9 @@ const ClubProfile = () => {
   return clubList.length === 0 ? null : (
     <div>
       <Banner clubBannerUrl={clubList[0]?.clubBannerUrl} />
-      <Description clubList={clubList[0]} />
-      <Events eventsList={eventsList} />
-      <Members clubMembersList={clubMembersList} />
+      <Description clubList={clubList[0]} isClubAdmin={isClubAdmin}/>
+      <Events eventsList={eventsList} isClubAdmin={isClubAdmin} />
+      <Members clubMembersList={clubMembersList} isClubAdmin={isClubAdmin} />
     </div>
   );
 };

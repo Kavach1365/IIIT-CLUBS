@@ -1,16 +1,22 @@
 import axios from "axios";
 
-const clubProfile = async (id) => {
-  const clubId = id;
-  console.log(clubId);
+const clubProfile = async ({ clubId, clubName }) => {
   let clubsList = [];
   try {
-    const response = await axios.get(
-      `http://localhost:8005/clubProfile?clubId=${id}`
-    );
+    let url;
+    if (clubId) {
+      url = `http://localhost:8005/clubProfile?clubId=${clubId}`;
+    } else if (clubName) {
+      url = `http://localhost:8005/clubProfile?clubName=${clubName}`;
+    } else {
+      throw new Error("Missing parameterss: clubId or clubName");
+    }
+
+    const response = await axios.get(url);
     clubsList = await response.data;
     return clubsList;
   } catch (e) {
+    console.error("Error fetching club profile:", e);
     return clubsList;
   }
 };

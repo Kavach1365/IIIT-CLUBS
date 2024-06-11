@@ -2,18 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+const cookieParser = require("cookie-parser");
 const { event, gallery, club, clubMember } = require("./mongo");
-const userRoutes = require("./src/authentication/routes/user.routes")
+const userRoutes = require("./src/authentication/routes/user.routes");
 const app = express();
+const { User } = require("./mongo");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
 
+// ROOT ROUTE
 app.get("/", cors(), (req, res) => {});
 
+// USER AUTHENTICATION ROUTES
 app.use("/api/users/", userRoutes);
-app.post("/add-event", async (req, res) => {
+
+// EVENT ROUTES
+app.post("/add-event/:id", async (req, res) => {
   const {
     clubName,
     eventName,
@@ -24,7 +32,7 @@ app.post("/add-event", async (req, res) => {
     eligibility,
     description,
   } = req.body;
-  //console.log(req.body);
+
   const data = {
     clubName,
     eventName,
@@ -36,14 +44,10 @@ app.post("/add-event", async (req, res) => {
     description,
   };
 
-  //console.log(data);
-
   try {
     await event.insertMany([data]);
     res.send("Data added successfully");
-    //console.log("Data added successfully");
   } catch (e) {
-    //console.log("Data not added");
     res.send(e);
   }
 });
@@ -60,7 +64,7 @@ app.put("/edit-event/:id", async (req, res) => {
     eligibility,
     description,
   } = req.body;
-  //console.log(req.body);
+
   const data = {
     clubName,
     eventName,
@@ -72,18 +76,56 @@ app.put("/edit-event/:id", async (req, res) => {
     description,
   };
 
-  //console.log(data);
-
   try {
     await event.updateMany({ _id: id }, { $set: { ...data } });
     res.send("Data edited successfully");
-    console.log("Data edited successfully");
   } catch (e) {
-    //console.log("Data not added");
     res.send(e);
   }
 });
 
+app.get("/all-events", async (req, res) => {
+  try {
+    const data = await event.find({}).sort({ startDate: -1 });
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
+app.get("/all-events/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await event.find({ _id: id });
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
+app.get("/upComing-events", async (req, res) => {
+  const todayDate = new Date();
+  try {
+    const data = await event.find({ startDate: { $gte: todayDate } });
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
+app.get("/completed-events", async (req, res) => {
+  const todayDate = new Date();
+  try {
+    const data = await event
+      .find({ startDate: { $lt: todayDate } })
+      .sort({ startDate: -1 });
+    res.status(200).send(data);
+  } catch (e) {
+    res.status(500).send("Error in fetching the data!");
+  }
+});
+
+// GALLERY ROUTES
 app.post("/add-to-gallery", async (req, res) => {
   const { imgUrl } = req.body;
   const data = {
@@ -92,24 +134,21 @@ app.post("/add-to-gallery", async (req, res) => {
   try {
     await gallery.create(data);
     res.send("Image added successfully");
-    console.log("Image added successfully");
   } catch (e) {
     console.log(e);
   }
 });
 
 app.get("/get-images", async (req, res) => {
-  // console.log("Getting Images");
   try {
     const data = await gallery.find();
-    // console.log(data);
     res.send(data);
   } catch (e) {
-    console.log(e);
     res.status(500).send("Error fetching data!");
   }
 });
 
+// CLUB ROUTES
 app.post("/add-club", async (req, res) => {
   const {
     clubName,
@@ -123,7 +162,7 @@ app.post("/add-club", async (req, res) => {
     clubImage,
     clubBanner,
   } = req.body;
-  //console.log(req.body);
+
   const data = {
     clubName,
     tagLine,
@@ -137,15 +176,10 @@ app.post("/add-club", async (req, res) => {
     clubBannerUrl: clubBanner,
   };
 
-  //console.log(data);
-
   try {
     await club.insertMany([data]);
     res.send("Data added successfully");
-    //console.log("Data added successfully");
   } catch (e) {
-    // console.log("Data not added");
-    // console.log(e);
     res.send(e);
   }
 });
@@ -160,87 +194,85 @@ app.get("/clubs", async (req, res) => {
 });
 
 app.get("/clubProfile", async (req, res) => {
-  const { clubId } = req.query;
+  const { clubId, clubName } = req.query;
   try {
-    const data = await club.find({ _id: clubId });
+    let data;
+    if (clubId) {
+      data = await club.find({ _id: clubId });
+    } else if (clubName) {
+      data = await club.find({ clubName: clubName });
+    } else {
+      throw new Error("Missing parameters: clubId or clubName");
+    }
     res.send(data);
   } catch (e) {
-    console.log("Error");
-    res.status(500).send("Error fetching data!");
+    res.status(500).send("Error fetching data: " + e.message);
   }
 });
 
-app.get("/all-events", async (req, res) => {
-  try {
-    const data = await event.find({}).sort({ startDate: -1 });
-    // console.log(data);
-    res.status(200).send(data);
-  } catch (e) {
-    // console.log(e);
-    res.status(500).send("Error in fetching the data!");
-  }
-});
 
-app.get("/all-events/:id", async (req, res) => {
+
+
+app.put("/edit-club/:id", async (req, res) => {
   const { id } = req.params;
-  try {
-    const data = await event.find({ _id: id });
-    //console.log(data);
-    res.status(200).send(data);
-  } catch (e) {
-    // console.log(e);
-    res.status(500).send("Error in fetching the data!");
-  }
-});
+  const updateData = req.body;
 
-app.get("/upComing-events", async (req, res) => {
-  const todayDate = new Date();
   try {
-    const data = await event.find({ startDate: { $gte: todayDate } });
-    // console.log("Upbsdb");
-    // console.log(data);
-    res.status(200).send(data);
+    await club.updateOne({ _id: id }, { $set: updateData });
+    res.send("Club updated successfully");
   } catch (e) {
-    //console.log(e);
-    res.status(500).send("Error in fetching the data!");
-  }
-});
-app.get("/completed-events", async (req, res) => {
-  const todayDate = new Date();
-  try {
-    const data = await event
-      .find({ startDate: { $lt: todayDate } })
-      .sort({ startDate: -1 });
-    // console.log("completed-events");
-    console.log(data);
-    res.status(200).send(data);
-  } catch (e) {
-    //console.log(e);
-    res.status(500).send("Error in fetching the data!");
-  }
-});
-
-app.post("/add-club-member", async (req, res) => {
-  const { memberId, name, clubName, imageUrl, branch, position } = req.body;
-  const data = {
-    memberId,
-    name,
-    clubName,
-    imageUrl,
-    branch,
-    position,
-  };
-  //console.log(data);
-  try {
-    await clubMember.insertMany([data]);
-    res.status(200).send("Data added successfully");
-    //console.log("Data added successfully");
-  } catch (e) {
-    // console.log("Data not added");
-    //console.log(e);
     res.status(500).send(e);
   }
 });
+
+
+// CLUB MEMBERS ROUTES
+app.post("/add-club-member/:id", async (req, res) => {
+  const { memberId, name, imageUrl, branch, position, isClubAdmin } = req.body;
+  const { id } = req.params;
+
+  try {
+    const foundClub = await club.findById(id);
+    if (!foundClub) {
+      console.error("Club not found::", id);
+      return res.status(404).json({ message: "Club not found." });
+    }
+
+    const newMember = new clubMember({
+      memberId,
+      name,
+      clubName: foundClub.clubName,
+      imageUrl,
+      branch,
+      position,
+      isClubAdmin,
+    });
+    await newMember.save();
+
+    const user = await User.findOne({ studentId: memberId });
+    if (user) {
+      user.clubsIn.push({ club: foundClub._id, isClubAdmin });
+
+      if (isClubAdmin) {
+        user.isClubAdmin = true;
+        if (!foundClub.clubAdmins) {
+          foundClub.clubAdmins = [];
+        }
+        foundClub.clubAdmins.push(user._id);
+      } else {
+        user.isClubAdmin = false;
+      }
+      await user.save();
+      await foundClub.save();
+    }
+
+    res.status(201).json({ message: "Member added successfully." });
+  } catch (error) {
+    console.error("Error adding club member:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
 
 app.get("/club-members", async (req, res) => {
   const { clubName } = req.query;
@@ -252,21 +284,20 @@ app.get("/club-members", async (req, res) => {
   }
 });
 
+// CLUB EVENTS ROUTES
 app.get("/club-events", async (req, res) => {
   const { clubName } = req.query;
-  //console.log(clubName);
   try {
     const data = await event
       .find({ clubName: clubName })
       .sort({ startDate: -1 });
-
-    //console.log(data);
     res.status(200).send(data);
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
+// EMAIL ROUTES
 app.post("/send-email", (req, res) => {
   const { feedback, suggestions } = req.body;
 
@@ -278,7 +309,6 @@ app.post("/send-email", (req, res) => {
     },
   });
 
-  // Setup email data
   let mailOptions = {
     from: "swapnithmadire123@gmail.com",
     to: "kavach1365@gmail.com",
@@ -291,13 +321,10 @@ app.post("/send-email", (req, res) => {
     `,
   };
 
-  // Send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
       res.status(500).send("Error sending feedback");
     } else {
-      console.log("Email sent: " + info.response);
       res.status(200).send("Feedback sent successfully");
     }
   });

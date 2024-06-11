@@ -5,6 +5,7 @@ import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../Error/ErrorMessage";
+import { useAuth } from "../../../authentication/context/AuthContext";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ function Register() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const {login} = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -41,6 +42,7 @@ function Register() {
       );
       // console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
+      login(data);
       setLoading(false);
       navigate("/");
     } catch (error) {

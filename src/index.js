@@ -19,8 +19,13 @@ import AddClub from "./components/Clubs/AddClub";
 import EditEvents from "./components/EditEvents/EditEvents";
 import AddClubMember from "./components/AddClubMember/AddClubMember";
 import NoticeBoard from "./components/NoticeBoard/NoticeBoard";
-import Login from "./components/auth/Login/Login"
-import Register from "./components/auth/Register/Register"
+import Login from "./components/auth/Login/Login";
+import Register from "./components/auth/Register/Register";
+import { AuthProvider } from "./authentication/context/AuthContext";
+import ProtectedRouteSuperAdmin from "./authentication/protectedRoutes/ProtectedRouteSuperAdmin"
+import EditClub from "./components/EditClub/EditClub";
+import ProtectedRouteClubAdmin from "./authentication/protectedRoutes/ProtectedRouteClubAdmin";
+import ProtectedRouteEventAdmin from "./authentication/protectedRoutes/ProtectedRouteEventAdmin";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -63,24 +68,28 @@ const appRouter = createBrowserRouter([
         element: <Event />,
       },
       {
-        path: "/add-events",
-        element: <AddEvents />,
-      },
-      {
         path: "/club-profile/:id",
         element: <ClubProfile />,
       },
       {
+        path:"/club-profile/:id/edit",
+        element:<ProtectedRouteClubAdmin><EditClub/></ProtectedRouteClubAdmin>,
+      },
+      {
+        path: "/add-events/:id",
+        element:<ProtectedRouteClubAdmin> <AddEvents /></ProtectedRouteClubAdmin>,
+      },
+      {
         path: "/add-club",
-        element: <AddClub />,
+        element: <ProtectedRouteSuperAdmin><AddClub /></ProtectedRouteSuperAdmin>,
       },
       {
-        path: "/edit-events",
-        element: <EditEvents />,
+        path: "/edit-event/:id",
+        element: <ProtectedRouteEventAdmin><EditEvents /></ProtectedRouteEventAdmin>,
       },
       {
-        path: "/add-club-member",
-        element: <AddClubMember />,
+        path: "/add-club-member/:id",
+        element: <ProtectedRouteClubAdmin><AddClubMember /></ProtectedRouteClubAdmin>,
       },
       {
         path: "/notice-board",
@@ -88,17 +97,22 @@ const appRouter = createBrowserRouter([
       },
     ],
   },
-    {
-      path: "/login",
-      element: <Login/>,
-    },
-    {
-      path:"/signup",
-      element:<Register/>
-    },
-  
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Register />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <AuthProvider>
+    <RouterProvider router={appRouter}>
+      <App />
+    </RouterProvider>
+  </AuthProvider>
+);

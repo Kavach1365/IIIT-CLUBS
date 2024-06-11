@@ -1,71 +1,199 @@
-import React, { useEffect, useState } from "react";
-import upComingEvents from "../../utils/upComingEvents";
-import EditEventForm from "./EditEventForm";
-import { Link } from "react-router-dom";
-import { formatDateForEvents } from "../../utils/formatDateForEvents";
-// import completedEvents from "../../utils/completedEvents";
-// import { Link } from "react-router-dom";
-const EditEvents = () => {
-  const [upcomingEventsList, setUpcomingEventsList] = useState([]);
-  const [editEvent, setEditEvent] = useState(null);
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FaFile, FaSpinner } from "react-icons/fa";
 
-  const setNull = () => {
-    setEditEvent(null);
-  };
+const EditEvent = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [eventData, setEventData] = useState({
+    clubName: "",
+    eventName: "",
+    imgUrl: "",
+    startDate: "",
+    endDate: "",
+    venue: "",
+    eligibility: "",
+    description: "",
+  });
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const upcomingEventsData = await upComingEvents();
-      setUpcomingEventsList(upcomingEventsData);
+    const fetchEventData = async () => {
+      try {
+        const response = await axios.get(`/all-events/${id}`);
+        setEventData(response.data[0]);
+      } catch (error) {
+        console.error("Error fetching event data", error);
+      }
     };
-    fetchData();
-  }, [editEvent]);
+    fetchEventData();
+  }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    const cloud_name = "di5wkmz5l";
+    const preset_key = "mdlylruh";
+
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("upload_preset", preset_key);
+
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData
+      );
+      setEventData((prevData) => ({
+        ...prevData,
+        imgUrl: res.data.secure_url,
+      }));
+      setIsUploading(false);
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      setIsUploading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`/edit-event/${id}`, eventData);
+      alert("Event updated successfully");
+      navigate(`/events`);
+    } catch (error) {
+      console.error("Error updating event data", error);
+      alert("Failed to update event");
+    }
+  };
 
   return (
-    <>
-      <div>
-        <h1 className="text-lg pb-4">Upcoming Events</h1>
-        <div className="flex flex-wrap pb-8">
-          {upcomingEventsList.map((event) => (
-            <div
-              to={`/events/${event._id}`}
-              className="w-60 rounded-xl shadow-xl cursor-pointer m-1 mb-2"
-              key={event._id}
-            >
-              <div className="h-92">
-                <Link to={`/events/${event._id}`}>
-                  <div className="h-60">
-                    <img
-                      src={event.imgUrl}
-                      alt={event.clubName}
-                      className="w-full h-full rounded-t-xl"
-                    />
-                  </div>
-                </Link>
-                <div className="flex flex-col justify-center h-36 pl-6 ">
-                  <Link to={`/events/${event._id}`}>
-                    <h2>{event.eventName}</h2>
-                    <p>{formatDateForEvents(new Date(event.startDate))}</p>
-                  </Link>
-                  <button
-                    onClick={() => setEditEvent(event)}
-                    className="mr-auto cursor-pointer text-white font-semibold mt-2 p-1 pl-6 pr-6 bg-[#3B71CA] rounded"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Edit Event</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700">Club Name</label>
+          <input
+            type="text"
+            name="clubName"
+            value={eventData.clubName}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded bg-gray-100 text-gray-500 cursor-not-allowed"
+            disabled
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Event Name</label>
+          <input
+            type="text"
+            name="eventName"
+            value={eventData.eventName}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        {!isUploading && (
+          <div className="mb-4">
+            <label className="block text-gray-700">Image URL</label>
+            <div className="input-file">
+              <label className="file-input-label" htmlFor="file">
+                Upload File
+              </label>
+              <FaFile />
+              <input
+                className="file-input"
+                type="file"
+                id="file"
+                onChange={uploadImage}
+              />
             </div>
-          ))}
+          </div>
+        )}
+        {isUploading && (
+          <div className="mb-4">
+            <label className="block text-gray-700">Uploading File</label>
+            <div className="upload-spinner">
+              <FaSpinner className="spinner-icon" />
+            </div>
+          </div>
+        )}
+        <div className="preview-image-div mb-4">
+          {eventData.imgUrl && (
+            <img className="preview-image" src={eventData.imgUrl} alt="Event" />
+          )}
         </div>
-      </div>
-      {editEvent !== null && (
-        <div className="p-4 overflow-y-scroll fixed top-0 left-0 right-0 w-full h-full bg-[#00000090] flex flex-row justify-center backdrop-opacity-10">
-          <EditEventForm setNull={setNull} event={editEvent} />
+        <div className="mb-4">
+          <label className="block text-gray-700">Start Date</label>
+          <input
+            type="datetime-local"
+            name="startDate"
+            value={eventData.startDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
         </div>
-      )}
-    </>
+        <div className="mb-4">
+          <label className="block text-gray-700">End Date</label>
+          <input
+            type="datetime-local"
+            name="endDate"
+            value={eventData.endDate}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Venue</label>
+          <input
+            type="text"
+            name="venue"
+            value={eventData.venue}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Eligibility</label>
+          <input
+            type="text"
+            name="eligibility"
+            value={eventData.eligibility}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Description</label>
+          <textarea
+            name="description"
+            value={eventData.description}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+        >
+          Save
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default EditEvents;
+export default EditEvent;

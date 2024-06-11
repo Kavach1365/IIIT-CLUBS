@@ -20,9 +20,9 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: "Invalid Student ID" });
     }
 
-    const emailRegex = new RegExp("^[bB]\\d{6}@rgukt\\.ac\\.in$");
+    const emailRegex = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: "Invalid email: Use Domain Mail" });
+      return res.status(400).json({ error: "Invalid email" });
     }
 
     const existingEmail = await User.findOne({ email });
@@ -82,14 +82,9 @@ const login = async (req, res) => {
 
     generateTokenAndSetCookie(user._id, res);
 
-    res.status(201).json({
-      _id: user._id,
-      email: user.email,
-      username: user.username,
-      profileImg: user.profileImg,
-      studentId: user.studentId,
-      isAdmin: user.isAdmin,
-    });
+    res.send(user);
+    
+
   } catch (error) {
     console.log("Error in Login controller", error);
     res.status(500).json({ error: "Internal Server Error:" });
