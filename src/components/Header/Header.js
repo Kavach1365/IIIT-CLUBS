@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import getUserInfo from "../../authentication/utils/userInfo";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const user = getUserInfo();
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
